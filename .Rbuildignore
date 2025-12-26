@@ -1,0 +1,10 @@
+^blankpkg\.Rproj$
+^\.Rproj\.user$
+^dev$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^[.]?air[.]toml$
+^CLAUDE\.md$
+^.claude$

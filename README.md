@@ -1,2 +1,3 @@
-# R_package_template
+# blankpkg
+
 Complete template for R packages including development and release scripts and pre-commit hooks. 
