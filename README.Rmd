@@ -13,26 +13,26 @@ knitr::opts_chunk$set(
 )
 ```
 
-# blankpkg: Complete R Package Template
+# blankpkg_template: Complete R Package Template
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/username/blankpkg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/username/blankpkg/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 > **⚠️ IMPORTANT: This is a TEMPLATE repository**
 >
-> This README.Rmd explains how the template works. When you use this for your own package, **replace this entire file** with documentation specific to your package. (Don't just edit it—start fresh!)
+> This README.Rmd explains how the template works. When you use this for your own package, **replace this entire file** with documentation specific to your package.
 
-## What is blankpkg?
+## What is `blankpkg_template`?
 
-`blankpkg` is a comprehensive R package template that gives you a complete development infrastructure out of the box. No need to set up the boring stuff—it's all here:
+It is a template for R packages that gives you a complete development infrastructure out of the box:
 
 - **30 development scripts** organized by workflow category
 - **Automatic pre-commit hooks** for code quality
 - **4-step CRAN release workflow**
 - **pkgdown website configuration** with example article
 - **Rcpp/C++ integration support**
+- **Claude Code support** with specific subagents for R package development
 - **Comprehensive testing and checking tools**
 - **Example vignette/article** demonstrating documentation best practices
 
@@ -44,10 +44,12 @@ This template follows modern R package development best practices and automates 
 
 All scripts are in the `dev/` folder with prefix-based naming for easy discovery:
 
+**Template skeleton (1 script)**
+- `template_skeleton.R` **DON'T RUN!** - Used to create the template's skeleton
+
 **Setup & Installation (3 scripts)**
-- `setup_new_package.R` - Reference for package creation
-- `setup_rcpp_infrastructure.R` - Add C++ functionality via Rcpp
 - `install_dev_dependencies.R` - Install all development packages
+- `setup_rcpp_infrastructure.R` - Add C++ functionality via Rcpp
 - `install_linter_jarl.R` - Install jarl linter (Rust-based CLI tool)
 
 **Daily Development (3 scripts)**

@@ -2,20 +2,35 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Package Overview
+## Template Overview
 
-This is a **complete R package template** (`blankpkg`) with comprehensive development infrastructure:
+This is a **complete R package template** (`blankpkg_template`) with comprehensive development infrastructure:
 - `roxyglobals` for automatic global variable detection
 - `air` formatter for code styling (Rust-based)
+- `jarl` linter.
 - `testthat` (edition 3) for testing
 - `pkgdown` for documentation website
 - `rhub` for cross-platform CRAN checks
 - Pre-commit hooks for automated quality checks
 - 30 development scripts organized by workflow
 
+**Design Philosophy:** The template prioritizes **simplicity and speed** in R package creation. Functions should be streamlined with minimal or no arguments, using sensible defaults. The goal is to make package development as fast and friction-free as possible.
+
+## Project Status and TODO Tracking
+
+See **`TODO.md`** in the project root for:
+- **Migration objective**: Converting dev/ scripts into CRAN-ready R functions
+- **Migration rules**: 12 detailed conversion guidelines (function design, documentation, code style)
+- **Progress tracking**: Checkbox list of all 30 scripts showing completion status
+- **Development roadmap**: Other planned improvements and tasks
+
+When converting scripts to functions, always follow the migration rules documented in TODO.md. After completing a script conversion, **you must update TODO.md** to:
+1. Mark the script as complete `[x]`
+2. Update the total count (e.g., "2/30 scripts migrated (6.7%)")
+
 ## Available Claude Code Agents
 
-This package includes specialized agents in `.claude/` folder. **Use these agents proactively** when appropriate:
+This package includes specialized agents in `.claude/` folder:
 
 ### roxygen-doc-reviewer
 **When to invoke:** After writing or modifying function documentation, BEFORE running `devtools::document()`
@@ -99,6 +114,15 @@ devtools::check()           # R CMD check (required before completion)
 - `pkgdown_*` - Package website building and customization
 - `release_*` - 4-step CRAN release workflow (must follow order 01→02→03→04)
 - `analyze_*` - Code analysis, coverage, dependencies, performance, quality
+
+**Script Standards:**
+- **All user-facing messages MUST use the `cli` package** - Never use `cat()`, `message()`, or `print()` for output
+- Use `cli::cli_alert_success()`, `cli::cli_alert_danger()`, `cli::cli_alert_info()` for status messages
+- Use `cli::cli_h2()`, `cli::cli_h3()` for section headers
+- Use `cli::cli_rule()` for horizontal dividers
+- Use `cli::cli_code()` for code examples
+- Use `cli::cli_ul()` for bullet lists
+- Use inline markup: `{.code ...}`, `{.file ...}`, `{.url ...}` for formatting
 
 **See `dev/README.md` for complete guide** (600+ lines with detailed usage instructions for all scripts)
 
@@ -216,6 +240,8 @@ Each step validates prerequisites before allowing progression to next step.
 4. **Maintain consistent parameter names** — Identical argument names across related functions
 5. **Delegate parallelization to `future`** and progress to `progressr` — Let users configure externally
 6. **Use standard R data structures** — Accept/return data frames, lists, vectors; avoid custom S4/R6 unless necessary
+7. **Use explicit namespace calls** — Always use `package::function()` syntax instead of `@importFrom` tags; makes dependencies explicit and code more readable
+8. **Keep functions simple and streamlined** — Minimize or eliminate function arguments; use sensible defaults; prioritize speed and simplicity over configurability
 
 ## Communication Style
 
