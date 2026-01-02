@@ -63,8 +63,7 @@ check_win_devel <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "WINDOWS R-DEVEL CHECK",
-    line = 2
+    left = "WINDOWS R-DEVEL CHECK"
   )
   cli::cli_text()
 

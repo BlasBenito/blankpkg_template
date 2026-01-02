@@ -74,8 +74,7 @@ analyze_performance <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "PERFORMANCE ANALYSIS TEMPLATE",
-    line = 2
+    left = "PERFORMANCE ANALYSIS TEMPLATE"
   )
   cli::cli_text()
 

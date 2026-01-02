@@ -63,8 +63,7 @@ build_readme <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "BUILD README",
-    line = 2
+    left = "BUILD README"
   )
   cli::cli_text()
 

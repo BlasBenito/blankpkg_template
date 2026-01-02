@@ -63,8 +63,7 @@ check_mac_release <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "MACOS R-RELEASE CHECK",
-    line = 2
+    left = "MACOS R-RELEASE CHECK"
   )
   cli::cli_text()
 

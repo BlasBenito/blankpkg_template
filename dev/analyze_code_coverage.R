@@ -65,8 +65,7 @@ analyze_code_coverage <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "CODE COVERAGE ANALYSIS",
-    line = 2
+    left = "CODE COVERAGE ANALYSIS"
   )
   cli::cli_text()
 

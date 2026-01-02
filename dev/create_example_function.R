@@ -64,8 +64,7 @@
 create_example_function <- function() {
   # Print header
   cli::cli_rule(
-    left = "CREATE EXAMPLE FUNCTION",
-    line = 2
+    left = "CREATE EXAMPLE FUNCTION"
   )
   cli::cli_text()
 

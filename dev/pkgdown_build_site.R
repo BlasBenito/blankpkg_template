@@ -91,8 +91,7 @@ pkgdown_build_site <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "BUILD PACKAGE WEBSITE",
-    line = 2
+    left = "BUILD PACKAGE WEBSITE"
   )
   cli::cli_text()
 

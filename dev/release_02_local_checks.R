@@ -76,8 +76,7 @@ release_02_local_checks <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "LOCAL VALIDATION CHECKS (STEP 2/4)",
-    line = 2
+    left = "LOCAL VALIDATION CHECKS (STEP 2/4)"
   )
   cli::cli_text()
 

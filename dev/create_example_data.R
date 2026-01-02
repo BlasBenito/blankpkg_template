@@ -73,8 +73,7 @@ create_example_data <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "CREATE EXAMPLE DATASET",
-    line = 2
+    left = "CREATE EXAMPLE DATASET"
   )
   cli::cli_text()
 

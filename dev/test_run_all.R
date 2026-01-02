@@ -58,8 +58,7 @@ test_run_all <- function() {
 
   # Print header (no console clearing)
   cli::cli_rule(
-    left = "RUN ALL TESTS",
-    line = 2
+    left = "RUN ALL TESTS"
   )
   cli::cli_text()
 

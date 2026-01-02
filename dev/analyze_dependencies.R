@@ -85,8 +85,7 @@ analyze_dependencies <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "PACKAGE DEPENDENCY ANALYSIS",
-    line = 2
+    left = "PACKAGE DEPENDENCY ANALYSIS"
   )
   cli::cli_text()
 

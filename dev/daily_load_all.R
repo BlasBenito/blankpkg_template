@@ -67,8 +67,7 @@ daily_load_all <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "DAILY WORKFLOW: LOAD PACKAGE",
-    line = 2
+    left = "DAILY WORKFLOW: LOAD PACKAGE"
   )
   cli::cli_text()
 

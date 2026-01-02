@@ -73,8 +73,7 @@ analyze_package_structure <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "PACKAGE STRUCTURE ANALYSIS",
-    line = 2
+    left = "PACKAGE STRUCTURE ANALYSIS"
   )
   cli::cli_text()
 

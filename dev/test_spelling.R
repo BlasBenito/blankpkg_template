@@ -71,8 +71,7 @@ test_spelling <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "SPELL CHECK",
-    line = 2
+    left = "SPELL CHECK"
   )
   cli::cli_text()
 

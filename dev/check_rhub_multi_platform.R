@@ -90,8 +90,7 @@ check_rhub_multi_platform <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "MULTI-PLATFORM PACKAGE CHECKS",
-    line = 2
+    left = "MULTI-PLATFORM PACKAGE CHECKS"
   )
   cli::cli_text()
 

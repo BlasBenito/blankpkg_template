@@ -84,8 +84,7 @@ pkgdown_customize_site <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "PKGDOWN SITE CUSTOMIZATION GUIDE",
-    line = 2
+    left = "PKGDOWN SITE CUSTOMIZATION GUIDE"
   )
   cli::cli_text()
   cli::cli_alert_info("Package: {.pkg {pkg_name}}")

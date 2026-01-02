@@ -71,8 +71,7 @@ build_vignettes <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "BUILD VIGNETTES",
-    line = 2
+    left = "BUILD VIGNETTES"
   )
   cli::cli_text()
 

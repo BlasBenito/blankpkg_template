@@ -64,8 +64,7 @@
 release_01_prepare <- function() {
   # Print header
   cli::cli_rule(
-    left = "RELEASE PREPARATION CHECKLIST (STEP 1/4)",
-    line = 2
+    left = "RELEASE PREPARATION CHECKLIST (STEP 1/4)"
   )
   cli::cli_text()
 

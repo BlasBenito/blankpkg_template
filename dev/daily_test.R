@@ -56,8 +56,7 @@ daily_test <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "DAILY WORKFLOW: RUN TESTS",
-    line = 2
+    left = "DAILY WORKFLOW: RUN TESTS"
   )
   cli::cli_text()
 

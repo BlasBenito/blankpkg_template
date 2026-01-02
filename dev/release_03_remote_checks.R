@@ -72,8 +72,7 @@ release_03_remote_checks <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "REMOTE VALIDATION CHECKS (STEP 3/4)",
-    line = 2
+    left = "REMOTE VALIDATION CHECKS (STEP 3/4)"
   )
   cli::cli_text()
 

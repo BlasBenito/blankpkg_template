@@ -69,8 +69,7 @@ check_good_practice <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "GOOD PRACTICE ANALYSIS",
-    line = 2
+    left = "GOOD PRACTICE ANALYSIS"
   )
   cli::cli_text()
 

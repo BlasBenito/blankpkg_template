@@ -65,8 +65,7 @@ test_with_coverage <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "TEST WITH COVERAGE ANALYSIS",
-    line = 2
+    left = "TEST WITH COVERAGE ANALYSIS"
   )
   cli::cli_text()
 

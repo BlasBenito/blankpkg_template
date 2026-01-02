@@ -70,8 +70,7 @@ analyze_code_quality <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "CODE QUALITY ANALYSIS",
-    line = 2
+    left = "CODE QUALITY ANALYSIS"
   )
   cli::cli_text()
 

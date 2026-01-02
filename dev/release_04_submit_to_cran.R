@@ -86,8 +86,7 @@ release_04_submit_to_cran <- function() {
 
   # Print header
   cli::cli_rule(
-    left = "SUBMIT TO CRAN (STEP 4/4 - FINAL)",
-    line = 2
+    left = "SUBMIT TO CRAN (STEP 4/4 - FINAL)"
   )
   cli::cli_text()
 
