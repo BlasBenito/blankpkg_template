@@ -209,18 +209,18 @@ Edit `DESCRIPTION` file with your package details:
 
 After editing README.Rmd, generate README.md by running:
 ```r
-source("dev/build_readme.R")
+build_readme()
 ```
 
 ### Step 4: Install Development Dependencies
 
 ```r
-source("dev/setup_install_tools.R")
+setup_install_tools()
 ```
 
 Optionally install the jarl linter (recommended):
 ```r
-source("dev/help_install_jarl.R")
+help_install_jarl()
 ```
 
 ### Step 5: Start Developing
@@ -228,32 +228,32 @@ source("dev/help_install_jarl.R")
 Use the daily development functions:
 ```r
 # Most common workflow - quick check
-source("dev/dev_check_quick.R")
+dev_check_quick()
 
 # For comprehensive checking (use before commits/releases)
-source("dev/dev_check_complete.R")
+dev_check_complete()
 
 # Quick testing
-source("dev/test_run.R")
+test_run()
 
 # Interactive development
-source("dev/dev_load.R")
+dev_load()
 ```
 
 ### Step 6: Customize pkgdown Website (Optional)
 
 If you want a package website:
 ```r
-source("dev/help_customize_website.R")
+help_customize_website()
 ```
 
-This interactive script helps you configure themes, navigation, and function reference organization.
+This interactive function helps you configure themes, navigation, and function reference organization.
 
 ### Step 7: Add Rcpp Functionality (Optional)
 
 Need to speed things up with C++?
 ```r
-source("dev/setup_cpp_support.R")
+setup_cpp_support()
 ```
 
 This sets up the complete Rcpp infrastructure with example functions to get you started.
@@ -265,10 +265,10 @@ This sets up the complete Rcpp infrastructure with example functions to get you 
 **Daily development:**
 ```r
 # Quick iteration
-source("dev/dev_check_quick.R")
+dev_check_quick()
 
 # Comprehensive check (before commits/releases)
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
 **Before committing:**
@@ -283,16 +283,16 @@ The pre-commit hook runs automatically and catches issues before they reach your
 
 ```r
 # Step 1: Prepare
-source("dev/release_01_prepare.R")
+release_01_prepare()
 
 # Step 2: Local checks
-source("dev/release_02_local_checks.R")
+release_02_local_checks()
 
 # Step 3: Remote checks
-source("dev/release_03_remote_checks.R")
+release_03_remote_checks()
 
 # Step 4: Submit
-source("dev/release_04_submit_to_cran.R")
+release_04_submit_to_cran()
 ```
 
 ## Template Documentation
@@ -337,12 +337,12 @@ This template follows modern R package development standards:
 Once you've customized the template for your package:
 
 1. Update README.Rmd with your package information
-2. Run `source("dev/build_readme.R")` to generate README.md
+2. Run `build_readme()` to generate README.md
 3. Update DESCRIPTION with correct metadata
 4. Start writing your package functions in R/
 5. Add tests in tests/testthat/
-6. Use `source("dev/dev_check_quick.R")` regularly for quick iterations
-7. Use `source("dev/dev_check_complete.R")` before commits and releases
+6. Use `dev_check_quick()` regularly for quick iterations
+7. Use `dev_check_complete()` before commits and releases
 
 ## License
 
