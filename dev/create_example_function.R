@@ -1,50 +1,79 @@
-# ============================================================================ #
-# Create Example Function for Package
-# ============================================================================ #
-#
-# PURPOSE:
-# This script demonstrates how to create and document functions for your
-# R package. It generates a complete example function with proper:
-#   - Function structure and parameters
-#   - Roxygen2 documentation
-#   - Input validation
-#   - Error handling
-#   - Examples
-#
-# WORKFLOW:
-# 1. Write the function code with proper structure
-# 2. Add roxygen2 documentation comments above the function
-# 3. Include @autoglobal tag for automatic global variable detection
-# 4. Add @export tag to make function available to users
-# 5. Run devtools::document() to generate help files and NAMESPACE
-#
-# BEST PRACTICES:
-# - Use snake_case for function names consistently
-# - Validate inputs and provide clear error messages
-# - Include @examples with working code
-# - Add @autoglobal for roxyglobals package integration
-# - Document all parameters with @param
-# - Describe return value with @return
-# - Keep functions focused on a single task
-#
-# FILES CREATED:
-# - R/lm_model.R (the function file)
-# - man/lm_model.Rd (generated help file after devtools::document())
-#
-# ============================================================================ #
+#' Create Example Function Template
+#'
+#' Demonstrates how to create and document functions for your R package.
+#' This is a TEMPLATE function that creates `lm_model.R` as an example.
+#'
+#' @return Logical value `TRUE`, returned invisibly, on successful function creation.
+#'
+#' @details
+#' **IMPORTANT: This is a TEMPLATE function - customize it for your needs!**
+#'
+#' This function demonstrates the complete workflow for creating package functions:
+#'
+#' 1. Writes a complete function with proper structure
+#' 2. Adds roxygen2 documentation comments
+#' 3. Includes @autoglobal for automatic global variable detection
+#' 4. Adds @export tag to make function available to users
+#' 5. Provides working examples in @examples section
+#' 6. Includes input validation and error handling
+#'
+#' The function creates `R/lm_model.R` as a working example. To create your own
+#' function, modify the function code and documentation to match your needs.
+#'
+#' @section Files Created:
+#' - `R/lm_model.R` - The function file
+#' - Help file generated via `devtools::document()` creates `man/lm_model.Rd`
+#' - NAMESPACE updated with export directive
+#'
+#' @section Best Practices:
+#' - Use snake_case for function names consistently
+#' - Validate inputs and provide clear error messages
+#' - Include @examples with working code
+#' - Add @autoglobal for roxyglobals integration
+#' - Document all parameters with @param
+#' - Describe return value with @return
+#' - Keep functions focused on a single task
+#' - Use explicit namespace calls (pkg::function)
+#'
+#' @section Prerequisites:
+#' - Must be run from package root directory
+#' - R/ directory should exist (created if missing)
+#'
+#' @section Notes:
+#' - This template creates the `lm_model()` function
+#' - Modify function code for your own needs
+#' - Run `devtools::document()` after creating function
+#' - Test with `devtools::load_all()` and `?lm_model`
+#' - Add tests in `tests/testthat/test-lm_model.R`
+#'
+#' @export
+#' @autoglobal
+#'
+#' @examples
+#' \dontrun{
+#' # Create the example function
+#' create_example_function()
+#'
+#' # After running:
+#' # 1. Review R/lm_model.R
+#' # 2. Run devtools::document()
+#' # 3. Test with devtools::load_all()
+#' # 4. Try ?lm_model
+#' # 5. Add tests in tests/testthat/
+#' }
+create_example_function <- function() {
+  # Print header
+  cli::cli_rule(
+    left = "CREATE EXAMPLE FUNCTION",
+    line = 2
+  )
+  cli::cli_text()
 
-# ============================================================================ #
-# STEP 1: Define the function code
-# ============================================================================ #
+  cli::cli_alert_info("Creating example function: {.code lm_model()}")
+  cli::cli_text()
 
-# This is the complete function code that will be written to R/lm_model.R
-# For your own functions:
-#   - Replace function name and parameters as needed
-#   - Customize the logic for your use case
-#   - Adjust documentation to match your function's purpose
-
-function_code <- '
-#\' Fit Linear Model to Dummy Dataset
+  # Function code with roxygen documentation
+  function_code <- '#\' Fit Linear Model to Dummy Dataset
 #\'
 #\' Fits a linear regression model using the first column as response variable
 #\' and all remaining columns as predictors. This is a demonstration function
@@ -131,7 +160,6 @@ lm_model <- function(df = NULL) {
   }
 
   # Fit linear model: first column ~ all other columns
-  # The formula y ~ . means "y predicted by all other variables"
   formula <- stats::as.formula(paste(names(df)[1], "~ ."))
   model <- stats::lm(formula, data = df)
 
@@ -139,56 +167,54 @@ lm_model <- function(df = NULL) {
 }
 '
 
-# ============================================================================ #
-# STEP 2: Write the function to the R/ directory
-# ============================================================================ #
+  cli::cli_h3("STEP 1: Create R/ directory")
 
-# Create R directory if it doesn't exist (usually already exists)
-if (!dir.exists("R")) {
-  dir.create("R")
-  cat("Created R/ directory\n")
+  # Create R directory if it doesn't exist
+  if (!dir.exists("R")) {
+    dir.create("R")
+    cli::cli_alert_success("Created R/ directory")
+  } else {
+    cli::cli_alert_info("R/ directory already exists")
+  }
+  cli::cli_text()
+
+  cli::cli_h3("STEP 2: Write function to file")
+
+  # Write function code to file
+  cat(function_code, file = "R/lm_model.R")
+  cli::cli_alert_success("Created {.file R/lm_model.R}")
+
+  # Check file info
+  file_info <- file.info("R/lm_model.R")
+  cli::cli_text("File size: {file_info$size} bytes")
+  cli::cli_text()
+
+  cli::cli_rule("FUNCTION CREATION COMPLETE")
+  cli::cli_text()
+
+  cli::cli_h3("NEXT STEPS:")
+  cli::cli_ol(c(
+    "Review the generated function in {.file R/lm_model.R}",
+    "Adjust documentation as needed",
+    "Modify function logic if required",
+    "Run {.code devtools::document()} to generate documentation",
+    "Test interactively with {.code devtools::load_all()} and {.code ?lm_model}",
+    "Add tests in {.file tests/testthat/test-lm_model.R}",
+    "Use the function in vignettes and documentation"
+  ))
+  cli::cli_text()
+
+  cli::cli_h3("TO CREATE YOUR OWN FUNCTION:")
+  cli::cli_ul(c(
+    "Modify the function code above to match your needs",
+    "Change function name and parameters",
+    "Update roxygen2 documentation",
+    "Add appropriate input validation",
+    "Include working examples in {.code @examples}",
+    "Use snake_case naming consistently",
+    "Add {.code @autoglobal} tag for global variable detection"
+  ))
+  cli::cli_rule()
+
+  invisible(TRUE)
 }
-
-# Write the function code to file
-cat(function_code, file = "R/lm_model.R")
-cat("✔ Created R/lm_model.R\n")
-
-# ============================================================================ #
-# STEP 3: Verify the function was created successfully
-# ============================================================================ #
-
-# Check file exists and display size
-file_info <- file.info("R/lm_model.R")
-cat("✔ File size:", file_info$size, "bytes\n")
-cat("✔ Function code written successfully\n\n")
-
-# ============================================================================ #
-# NEXT STEPS:
-# ============================================================================ #
-#
-# 1. Review the generated function in R/lm_model.R
-#    - Verify the code is correct
-#    - Adjust documentation as needed
-#    - Modify function logic if required
-#
-# 2. Run devtools::document() to generate documentation:
-#    - Creates man/lm_model.Rd help file
-#    - Updates NAMESPACE with @export directive
-#    - Processes @autoglobal for global variable detection
-#
-# 3. Test the function interactively:
-#    - devtools::load_all()
-#    - lm_model()
-#    - ?lm_model
-#
-# 4. Add tests in tests/testthat/test-lm_model.R:
-#    - Test with default dataset
-#    - Test with custom data
-#    - Test input validation (expect errors)
-#    - Test return value structure
-#
-# 5. Use the function in vignettes and other documentation
-#
-# ============================================================================ #
-
-cat("Next step: Run devtools::document() to generate documentation\n")

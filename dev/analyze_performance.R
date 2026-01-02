@@ -1,188 +1,191 @@
-# ==============================================================================
-# ANALYZE PERFORMANCE
-# ==============================================================================
-#
-# PURPOSE:
-#   Template for benchmarking and profiling package functions
-#
-# USAGE:
-#   source("dev/analyze_performance.R")
-#   Modify the template code to benchmark your specific functions
-#
-# PREREQUISITES:
-#   - microbenchmark package: install.packages("microbenchmark")
-#   - profvis package: install.packages("profvis")
-#   - devtools package: install.packages("devtools")
-#   - Run from package root directory
-#
-# WHAT THIS DOES:
-#   Provides templates for:
-#   1. Benchmarking function execution time with microbenchmark
-#   2. Profiling code execution with profvis
-#   3. Comparing alternative implementations
-#   4. Identifying performance bottlenecks
-#
-# EXPECTED OUTPUT:
-#   - Benchmark results showing median/mean execution times
-#   - Interactive profvis visualization (opens in browser)
-#   - Comparison of alternative approaches
-#   - Recommendations for optimization
-#
-# NOTES:
-#   - **IMPORTANT**: This is a TEMPLATE—you must customize it!
-#   - This script won't do anything useful until you edit it (seriously!)
-#   - Replace ALL placeholder function calls with your actual functions
-#   - Create realistic test data that matches real-world use (not toy examples)
-#   - Run benchmarks on representative data sizes
-#   - Profile on realistic workloads, not tiny test cases
-#   - Consider trade-offs between speed and readability (faster isn't always better)
-#   - Don't optimize prematurely—profile first, then optimize!
-#   - Document why you chose each optimization (future you will thank you)
-#
-# ==============================================================================
-
-# Check prerequisites
-required_packages <- c("microbenchmark", "profvis", "devtools")
-missing_packages <- required_packages[
-  !sapply(required_packages, requireNamespace, quietly = TRUE)
-]
-
-if (length(missing_packages) > 0) {
-  stop(
-    sprintf(
-      "Required packages missing: %s\n",
-      paste(missing_packages, collapse = ", ")
-    ),
-    "Install with: install.packages(c('",
-    paste(missing_packages, collapse = "', '"),
-    "'))"
-  )
-}
-
-# Print header
-cat(
-  "==============================================================================\n"
-)
-cat("PERFORMANCE ANALYSIS TEMPLATE\n")
-cat(
-  "==============================================================================\n\n"
-)
-
-cat(
-  "This is a TEMPLATE script. You need to customize it for your package functions.\n"
-)
-cat("(It won't do anything useful until you do!)\n\n")
-
-# Load package
-cat("Loading package...\n")
-devtools::load_all(quiet = TRUE)
-cat("Package loaded.\n\n")
-
-# ==============================================================================
-# BENCHMARKING TEMPLATE
-# ==============================================================================
-
-cat("BENCHMARKING TEMPLATE\n")
-cat("---------------------\n\n")
-
-cat("Example: Benchmark a function with microbenchmark\n\n")
-
-cat("# Uncomment and modify this template:\n")
-cat("# benchmark_result <- microbenchmark::microbenchmark(\n")
-cat("#   small_input = your_function(small_data),\n")
-cat("#   medium_input = your_function(medium_data),\n")
-cat("#   large_input = your_function(large_data),\n")
-cat("#   times = 100\n")
-cat("# )\n")
-cat("# print(benchmark_result)\n")
-cat("# plot(benchmark_result)\n\n")
-
-# ==============================================================================
-# PROFILING TEMPLATE
-# ==============================================================================
-
-cat("PROFILING TEMPLATE\n")
-cat("------------------\n\n")
-
-cat("Example: Profile a function with profvis\n\n")
-
-cat("# Uncomment and modify this template:\n")
-cat("# profvis::profvis({\n")
-cat("#   result <- your_function(test_data)\n")
-cat("# })\n")
-cat("# \n")
-cat("# The interactive profiler will open in your browser\n")
-cat("# It shows:\n")
-cat("#   - Time spent in each function\n")
-cat("#   - Memory allocations\n")
-cat("#   - Call stack visualization\n\n")
-
-# ==============================================================================
-# COMPARISON TEMPLATE
-# ==============================================================================
-
-cat("COMPARISON TEMPLATE\n")
-cat("-------------------\n\n")
-
-cat("Example: Compare alternative implementations\n\n")
-
-cat("# Uncomment and modify this template:\n")
-cat("# comparison <- microbenchmark::microbenchmark(\n")
-cat("#   approach_1 = implementation_1(data),\n")
-cat("#   approach_2 = implementation_2(data),\n")
-cat("#   approach_3 = implementation_3(data),\n")
-cat("#   times = 100\n")
-cat("# )\n")
-cat("# print(comparison)\n")
-cat("# \n")
-cat("# Use this to choose the fastest implementation\n\n")
-
-# ==============================================================================
-# EXAMPLE (demonstrates the syntax)
-# ==============================================================================
-
-cat("DEMONSTRATION EXAMPLE\n")
-cat("---------------------\n\n")
-
-cat("Running a simple demonstration benchmark...\n\n")
-
-# Simple example with base R functions
-demo_result <- microbenchmark::microbenchmark(
-  sqrt_loop = {
-    x <- numeric(1000)
-    for (i in 1:1000) {
-      x[i] <- sqrt(i)
+#' Performance Analysis Template for Benchmarking
+#'
+#' Provides interactive templates and examples for benchmarking and profiling
+#' package functions. This is a TEMPLATE function that must be customized.
+#'
+#' @return Microbenchmark results from demonstration example, returned invisibly.
+#'
+#' @details
+#' **IMPORTANT: This is a TEMPLATE function - you must customize it!**
+#'
+#' This function won't do anything useful for your package until you edit it.
+#' It provides templates and examples for:
+#'
+#' 1. Benchmarking function execution time with microbenchmark
+#' 2. Profiling code execution with profvis
+#' 3. Comparing alternative implementations
+#' 4. Identifying performance bottlenecks
+#'
+#' The function loads your package and displays template code that you should
+#' copy, modify, and run interactively to analyze your specific functions.
+#'
+#' @section Template Usage:
+#' 1. Run this function to see the templates
+#' 2. Copy the relevant template code
+#' 3. Modify it for your specific functions
+#' 4. Replace placeholder function calls with your actual functions
+#' 5. Create realistic test data (not toy examples)
+#' 6. Run the customized code in your R session
+#' 7. Analyze results and optimize as needed
+#'
+#' @section Typical Runtime:
+#' <1 second (just displays templates and runs simple demo)
+#'
+#' @section Prerequisites:
+#' - Must be run from package root directory
+#' - microbenchmark package will be installed if missing
+#' - profvis package will be installed if missing
+#' - devtools package will be installed if missing
+#'
+#' @section Important Notes:
+#' - Replace ALL placeholder function calls with your actual functions
+#' - Use realistic data sizes that match production use
+#' - Profile on representative workloads, not tiny test cases
+#' - Consider trade-offs: speed vs readability
+#' - Don't optimize prematurely - profile first!
+#' - Document why you chose each optimization
+#' - Faster isn't always better if it hurts maintainability
+#'
+#' @export
+#' @autoglobal
+#'
+#' @examples
+#' \dontrun{
+#' # Display benchmarking templates
+#' analyze_performance()
+#'
+#' # Then customize the templates for your functions:
+#' # benchmark_result <- microbenchmark::microbenchmark(
+#' #   small = your_function(small_data),
+#' #   large = your_function(large_data),
+#' #   times = 100
+#' # )
+#' # print(benchmark_result)
+#' }
+analyze_performance <- function() {
+  # Check and install dependencies
+  required_packages <- c("microbenchmark", "profvis", "devtools")
+  for (pkg in required_packages) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      cli::cli_alert_info("Installing required package: {.pkg {pkg}}")
+      utils::install.packages(pkg)
     }
-  },
-  sqrt_vectorized = {
-    x <- sqrt(1:1000)
-  },
-  times = 100
-)
+  }
 
-print(demo_result)
+  # Print header
+  cli::cli_rule(
+    left = "PERFORMANCE ANALYSIS TEMPLATE",
+    line = 2
+  )
+  cli::cli_text()
 
-cat(
-  "\n==============================================================================\n"
-)
-cat("PERFORMANCE ANALYSIS TEMPLATE COMPLETE\n")
-cat(
-  "==============================================================================\n\n"
-)
+  cli::cli_alert_warning(
+    "This is a TEMPLATE script. You need to customize it for your package functions."
+  )
+  cli::cli_text("(It won't do anything useful until you do!)")
+  cli::cli_text()
 
-cat("NEXT STEPS:\n")
-cat("1. Identify functions that need performance analysis (the slow ones!)\n")
-cat("2. Create representative test data (use realistic sizes)\n")
-cat("3. Uncomment and customize the templates above\n")
-cat("4. Run benchmarks and profiling\n")
-cat("5. Optimize bottlenecks if needed (but only if needed)\n")
-cat("6. Compare performance before/after changes\n\n")
+  # Load package
+  cli::cli_alert_info("Loading package...")
+  devtools::load_all(quiet = TRUE)
+  cli::cli_alert_success("Package loaded")
+  cli::cli_text()
 
-cat("TIPS:\n")
-cat("- Profile with realistic data sizes (not toy examples)\n")
-cat("- Consider memory usage, not just speed (memory matters!)\n")
-cat("- Balance performance with code readability (don't sacrifice clarity)\n")
-cat("- Document why optimizations were chosen (explain the trade-offs)\n")
-cat(
-  "==============================================================================\n"
-)
+  # Benchmarking template
+  cli::cli_h2("BENCHMARKING TEMPLATE")
+  cli::cli_text()
+  cli::cli_text("Example: Benchmark a function with microbenchmark")
+  cli::cli_text()
+  cli::cli_code("# Uncomment and modify this template:")
+  cli::cli_code("# benchmark_result <- microbenchmark::microbenchmark(")
+  cli::cli_code("#   small_input = your_function(small_data),")
+  cli::cli_code("#   medium_input = your_function(medium_data),")
+  cli::cli_code("#   large_input = your_function(large_data),")
+  cli::cli_code("#   times = 100")
+  cli::cli_code("# )")
+  cli::cli_code("# print(benchmark_result)")
+  cli::cli_code("# plot(benchmark_result)")
+  cli::cli_text()
+
+  # Profiling template
+  cli::cli_h2("PROFILING TEMPLATE")
+  cli::cli_text()
+  cli::cli_text("Example: Profile a function with profvis")
+  cli::cli_text()
+  cli::cli_code("# Uncomment and modify this template:")
+  cli::cli_code("# profvis::profvis({")
+  cli::cli_code("#   result <- your_function(test_data)")
+  cli::cli_code("# })")
+  cli::cli_code("# ")
+  cli::cli_code("# The interactive profiler will open in your browser")
+  cli::cli_code("# It shows:")
+  cli::cli_code("#   - Time spent in each function")
+  cli::cli_code("#   - Memory allocations")
+  cli::cli_code("#   - Call stack visualization")
+  cli::cli_text()
+
+  # Comparison template
+  cli::cli_h2("COMPARISON TEMPLATE")
+  cli::cli_text()
+  cli::cli_text("Example: Compare alternative implementations")
+  cli::cli_text()
+  cli::cli_code("# Uncomment and modify this template:")
+  cli::cli_code("# comparison <- microbenchmark::microbenchmark(")
+  cli::cli_code("#   approach_1 = implementation_1(data),")
+  cli::cli_code("#   approach_2 = implementation_2(data),")
+  cli::cli_code("#   approach_3 = implementation_3(data),")
+  cli::cli_code("#   times = 100")
+  cli::cli_code("# )")
+  cli::cli_code("# print(comparison)")
+  cli::cli_code("# ")
+  cli::cli_code("# Use this to choose the fastest implementation")
+  cli::cli_text()
+
+  # Demonstration example
+  cli::cli_h2("DEMONSTRATION EXAMPLE")
+  cli::cli_text()
+  cli::cli_alert_info("Running {.code microbenchmark::microbenchmark()} demo ...")
+  cli::cli_text()
+
+  # Simple example with base R functions
+  demo_result <- microbenchmark::microbenchmark(
+    sqrt_loop = {
+      x <- numeric(1000)
+      for (i in 1:1000) {
+        x[i] <- sqrt(i)
+      }
+    },
+    sqrt_vectorized = {
+      x <- sqrt(1:1000)
+    },
+    times = 100
+  )
+
+  print(demo_result)
+
+  cli::cli_text()
+  cli::cli_rule("PERFORMANCE ANALYSIS TEMPLATE COMPLETE")
+  cli::cli_text()
+
+  cli::cli_h3("NEXT STEPS:")
+  cli::cli_ol(c(
+    "Identify functions that need performance analysis (the slow ones!)",
+    "Create representative test data (use realistic sizes)",
+    "Uncomment and customize the templates above",
+    "Run benchmarks and profiling",
+    "Optimize bottlenecks if needed (but only if needed)",
+    "Compare performance before/after changes"
+  ))
+  cli::cli_text()
+
+  cli::cli_h3("TIPS:")
+  cli::cli_ul(c(
+    "Profile with realistic data sizes (not toy examples)",
+    "Consider memory usage, not just speed (memory matters!)",
+    "Balance performance with code readability (don't sacrifice clarity)",
+    "Document why optimizations were chosen (explain the trade-offs)"
+  ))
+  cli::cli_rule()
+
+  invisible(demo_result)
+}

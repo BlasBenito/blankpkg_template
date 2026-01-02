@@ -1,96 +1,110 @@
-# ==============================================================================
-# BUILD README
-# ==============================================================================
-#
-# PURPOSE:
-#   Render README.Rmd to README.md (if README.Rmd exists)
-#
-# USAGE:
-#   source("dev/build_readme.R")
-#
-# PREREQUISITES:
-#   - devtools package: install.packages("devtools")
-#   - rmarkdown package: install.packages("rmarkdown")
-#   - Run from package root directory
-#   - README.Rmd file exists
-#
-# WHAT THIS DOES:
-#   1. Checks if README.Rmd exists
-#   2. Renders README.Rmd to README.md using devtools
-#   3. Executes any R code chunks in README.Rmd
-#   4. Updates README.md with current output
-#   5. Validates the result
-#
-# EXPECTED OUTPUT:
-#   - Updated README.md file
-#   - Console output showing rendering progress
-#   - Confirmation of successful build
-#
-# NOTES:
-#   - Only runs if README.Rmd exists
-#   - README.md is auto-generated, don't edit directly
-#   - Rerun after changing README.Rmd
-#   - Executes code chunks, ensure they're up-to-date
-#   - Commit both .Rmd and .md files
-#   - GitHub displays README.md on repository page
-#
-# ==============================================================================
+#' Render README.Rmd to README.md
+#'
+#' Renders the package README.Rmd file to README.md, executing all R code
+#' chunks and updating output.
+#'
+#' @return Logical value `TRUE`, returned invisibly, on successful build.
+#'
+#' @details
+#' This function builds the package README from the source .Rmd file.
+#' It performs the following steps:
+#'
+#' 1. Checks for required dependencies (installs if needed)
+#' 2. Verifies README.Rmd exists in package root
+#' 3. Renders README.Rmd to README.md using `devtools::build_readme()`
+#' 4. Executes any R code chunks in README.Rmd
+#' 5. Updates README.md with current output
+#' 6. Reports build time
+#'
+#' @section README Files:
+#' - **README.Rmd** - Source file with R Markdown content (edit this)
+#' - **README.md** - Auto-generated Markdown file (don't edit directly)
+#' - GitHub displays README.md on repository page
+#' - Both files should be committed to version control
+#'
+#' @section When to Build:
+#' - After modifying README.Rmd content
+#' - When R code chunks produce new output
+#' - Before committing changes to repository
+#' - To update package examples in README
+#'
+#' @section Prerequisites:
+#' - Must be run from package root directory
+#' - README.Rmd file must exist in root
+#' - Create with: `usethis::use_readme_rmd()`
+#'
+#' @section Notes:
+#' - README.md is auto-generated; make all edits in README.Rmd
+#' - Code chunks are executed during build
+#' - Ensure code chunks are up-to-date and runnable
+#' - Commit both .Rmd and .md files together
+#' - Build fails if README.Rmd doesn't exist
+#'
+#' @export
+#' @autoglobal
+#'
+#' @examples
+#' \dontrun{
+#' # Build README from README.Rmd
+#' build_readme()
+#'
+#' # Typical workflow:
+#' # 1. Edit README.Rmd
+#' # 2. build_readme() to update README.md
+#' # 3. Review changes
+#' # 4. Commit both files
+#' }
+build_readme <- function() {
+  # Check and install dependencies
+  if (!requireNamespace("devtools", quietly = TRUE)) {
+    cli::cli_alert_info("Installing required package: {.pkg devtools}")
+    utils::install.packages("devtools")
+  }
 
-# Check prerequisites
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  stop(
-    "devtools package required. Install with:\n",
-    "  install.packages('devtools')"
+  # Print header
+  cli::cli_rule(
+    left = "BUILD README",
+    line = 2
   )
-}
+  cli::cli_text()
 
-# Print header
-cat(
-  "==============================================================================\n"
-)
-cat("BUILD README\n")
-cat(
-  "==============================================================================\n\n"
-)
+  # Check if README.Rmd exists
+  if (!file.exists("README.Rmd")) {
+    cli::cli_alert_danger("No README.Rmd found in package root")
+    cli::cli_text()
+    cli::cli_alert_info("This package has no README.Rmd to build")
+    cli::cli_text()
+    cli::cli_alert_info("To create one: {.code usethis::use_readme_rmd()}")
+    cli::cli_rule()
+    cli::cli_abort("README.Rmd not found")
+  }
 
-# Check if README.Rmd exists
-if (!file.exists("README.Rmd")) {
-  cat("No README.Rmd found in package root.\n\n")
-  cat("This package has no README.Rmd to build.\n")
-  cat("To create one:\n")
-  cat("  usethis::use_readme_rmd()\n")
-  cat(
-    "==============================================================================\n"
+  # Build README
+  cli::cli_alert_info("Running {.code devtools::build_readme()} ...")
+  cli::cli_text()
+
+  start_time <- Sys.time()
+
+  devtools::build_readme()
+
+  build_time <- difftime(Sys.time(), start_time, units = "secs")
+
+  cli::cli_text()
+  cli::cli_rule("README BUILD COMPLETE")
+  cli::cli_alert_success(
+    "Build time: {round(build_time, 1)} seconds"
   )
-  stop("README.Rmd not found", call. = FALSE)
+  cli::cli_text()
+  cli::cli_alert_success("README.md has been updated")
+  cli::cli_text()
+
+  cli::cli_h3("Reminder:")
+  cli::cli_ul(c(
+    "Commit both README.Rmd and README.md",
+    "Don't edit README.md directly",
+    "Make changes in README.Rmd and rebuild"
+  ))
+  cli::cli_rule()
+
+  invisible(TRUE)
 }
-
-cat("Rendering README.Rmd to README.md...\n")
-cat(
-  "------------------------------------------------------------------------------\n\n"
-)
-
-start_time <- Sys.time()
-
-# Build README
-devtools::build_readme()
-
-build_time <- difftime(Sys.time(), start_time, units = "secs")
-
-cat(
-  "\n==============================================================================\n"
-)
-cat("README BUILD COMPLETE\n")
-cat(
-  "==============================================================================\n"
-)
-cat(sprintf("Build time: %.1f seconds\n\n", build_time))
-
-cat("README.md has been updated.\n")
-cat("\nReminder:\n")
-cat("  - Commit both README.Rmd and README.md\n")
-cat("  - Don't edit README.md directly\n")
-cat("  - Make changes in README.Rmd and rebuild\n")
-cat(
-  "==============================================================================\n"
-)

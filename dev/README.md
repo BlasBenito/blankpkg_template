@@ -42,12 +42,13 @@ This folder contains development and release scripts for R package maintenance. 
 
 ```r
 # Daily development (most used)
-source("dev/daily_document_and_check.R")  # Update docs + check package
+source("dev/check.R")                     # Quick check (document + R CMD check)
+source("dev/check_full.R")                # Comprehensive check (with CRAN=TRUE)
 source("dev/daily_test.R")                # Run tests quickly
 source("dev/daily_load_all.R")            # Load package for interactive use
 
 # Before committing
-source("dev/check_local.R")               # Full R CMD check
+source("dev/check_full.R")                # Full R CMD check with CRAN standards
 source("dev/test_spelling.R")             # Check spelling
 ```
 
@@ -79,13 +80,13 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
    - Use for interactive testing and development
    - Rerun after making code changes
 
-2. **After making changes:**
+2. **After making changes (quick iteration):**
    ```r
-   source("dev/daily_document_and_check.R")
+   source("dev/check.R")
    ```
    - Updates documentation (roxygen2)
    - Runs R CMD check
-   - **Most frequently used script** (bookmark this one!)
+   - **Most frequently used function** for daily development
    - Takes 30-60 seconds
 
 3. **Quick test run:**
@@ -101,9 +102,11 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
 Run these before committing code:
 
 ```r
-source("dev/check_local.R")      # Full validation
+source("dev/check_full.R")       # Full validation with CRAN=TRUE
 source("dev/test_spelling.R")    # Check spelling
 ```
+
+**Note:** Use `check.R` for quick daily iterations, but always use `check_full.R` before commits and releases for comprehensive CRAN-level checking.
 
 All checks should pass (0 errors, 0 warnings, 0 notes) before committing. No exceptions!
 
@@ -144,7 +147,7 @@ Before starting the release process, ensure:
 ### Code Quality Checks
 
 ```r
-source("dev/check_local.R")           # Must pass with 0/0/0
+source("dev/check_full.R")            # Must pass with 0/0/0 (CRAN=TRUE)
 source("dev/check_good_practice.R")   # Review recommendations
 source("dev/test_spelling.R")         # Fix all errors
 source("dev/test_with_coverage.R")    # Check coverage >80%
@@ -293,11 +296,17 @@ source("dev/release_04_submit_to_cran.R")
 
 ### Daily Development
 
-#### `daily_document_and_check.R`
-**When to use:** After making code changes (most common workflow)
+#### `check.R`
+**When to use:** After making code changes (quick iteration workflow)
 **What it does:** Updates documentation + runs R CMD check
 **Time:** 30-60 seconds
-**Notes:** Run this frequently during development—like, multiple times a day!
+**Notes:** Run this frequently during development for quick iterations
+
+#### `check_full.R`
+**When to use:** Before committing or releasing code
+**What it does:** Updates documentation + runs R CMD check with CRAN=TRUE
+**Time:** 30-90 seconds
+**Notes:** More comprehensive than `check.R`; catches CRAN-specific issues
 
 #### `daily_test.R`
 **When to use:** Quick test execution during development
@@ -337,10 +346,10 @@ source("dev/release_04_submit_to_cran.R")
 
 ### Checking Suite
 
-#### `check_local.R`
-**When to use:** Before committing, before release
-**What it does:** Full R CMD check locally
-**Time:** 30-90 seconds
+#### `check.R` and `check_full.R`
+See [Daily Development](#daily-development) section above for details.
+- **check.R**: Quick iteration workflow
+- **check_full.R**: Comprehensive checking with CRAN=TRUE (use before commits/releases)
 **Notes:** Must pass with 0/0/0 before release (no shortcuts here!)
 
 #### `check_win_devel.R`
@@ -770,8 +779,8 @@ The agents complement but do not replace the development scripts:
 ```r
 # 1. Write/modify function
 # 2. Ask roxygen-doc-reviewer to check documentation
-# 3. Run documentation
-source("dev/daily_document_and_check.R")
+# 3. Run quick check
+source("dev/check.R")
 
 # ... later, preparing for CRAN ...
 
@@ -809,13 +818,13 @@ Type the prefix and use tab completion to see all related scripts:
 
 **Before committing code:**
 ```r
-source("dev/daily_document_and_check.R")
+source("dev/check_full.R")
 source("dev/test_spelling.R")
 ```
 
 **Before pushing to remote:**
 ```r
-source("dev/check_local.R")
+source("dev/check_full.R")
 source("dev/test_run_all.R")
 ```
 

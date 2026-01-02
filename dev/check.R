@@ -69,7 +69,7 @@ check <- function() {
   cli::cli_h2("STEP 1: Documenting package")
   cli::cli_text("")
 
-  cli::cli_text("Running {.code devtools::document()} (1st pass)...")
+  cli::cli_alert_info("Running {.code devtools::document()} ...")
   devtools::document()
   cli::cli_text("")
 
@@ -79,7 +79,8 @@ check <- function() {
   # Step 2: Check (without tests and examples)
   cli::cli_h2("STEP 2: Running R CMD check")
   cli::cli_text("")
-  cli::cli_text("Checking package structure (no tests, no examples)...")
+
+  cli::cli_alert_info("Running {.code devtools::check(args = c('--no-tests', '--no-examples'))} ...")
   cli::cli_text("")
 
   result <- devtools::check(

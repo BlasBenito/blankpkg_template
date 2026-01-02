@@ -78,7 +78,7 @@ install_formatter_air <- function(vscode = FALSE) {
   cli::cli_h2("Configuring air formatter")
   cli::cli_text("")
 
-  cli::cli_text("Running {.code usethis::use_air(vscode = {vscode})}...")
+  cli::cli_alert_info("Running {.code usethis::use_air(vscode = {vscode})} ...")
   cli::cli_text("")
 
   usethis::use_air(vscode = vscode)

@@ -70,11 +70,11 @@ check_full <- function() {
   cli::cli_h2("STEP 1: Documenting package")
   cli::cli_text("")
 
-  cli::cli_text("Running {.code devtools::document()} (1st pass)...")
+  cli::cli_alert_info("Running {.code devtools::document()} (1st pass) ...")
   devtools::document()
   cli::cli_text("")
 
-  cli::cli_text("Running {.code devtools::document()} (2nd pass for NAMESPACE)...")
+  cli::cli_alert_info("Running {.code devtools::document()} (2nd pass for NAMESPACE) ...")
   devtools::document()
   cli::cli_text("")
 
@@ -84,7 +84,8 @@ check_full <- function() {
   # Step 2: Full check (with tests and examples)
   cli::cli_h2("STEP 2: Running R CMD check")
   cli::cli_text("")
-  cli::cli_text("Checking package completely (this may take a few minutes)...")
+
+  cli::cli_alert_info("Running {.code devtools::check()} with CRAN=TRUE ...")
   cli::cli_text("")
 
   result <- devtools::check(

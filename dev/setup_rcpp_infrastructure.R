@@ -85,6 +85,7 @@ setup_rcpp_infrastructure <- function() {
   # Run usethis::use_rcpp()
   cli::cli_h2("STEP 1: Running usethis::use_rcpp()")
 
+  cli::cli_alert_info("Running {.code usethis::use_rcpp()} ...")
   usethis::use_rcpp()
 
   cli::cli_alert_success("Rcpp infrastructure configured")

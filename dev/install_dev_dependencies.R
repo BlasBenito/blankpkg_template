@@ -89,7 +89,7 @@ install_dev_dependencies <- function() {
   cli::cli_text("")
 
   # Install packages
-  cli::cli_text("Installing packages (this may take 5-10 minutes)...")
+  cli::cli_alert_info("Running {.code utils::install.packages()} with {ncores} core{?s} ...")
   cli::cli_text("")
 
   utils::install.packages(
