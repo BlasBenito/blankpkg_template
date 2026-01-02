@@ -31,7 +31,7 @@ This folder contains development and release scripts for R package maintenance. 
 
 1. **Install development dependencies:**
    ```r
-   source("dev/install_dev_dependencies.R")
+   source("dev/setup_install_tools.R")
    ```
 
 2. **Configure your environment:**
@@ -42,13 +42,13 @@ This folder contains development and release scripts for R package maintenance. 
 
 ```r
 # Daily development (most used)
-source("dev/check.R")                     # Quick check (document + R CMD check)
-source("dev/check_full.R")                # Comprehensive check (with CRAN=TRUE)
-source("dev/daily_test.R")                # Run tests quickly
-source("dev/daily_load_all.R")            # Load package for interactive use
+source("dev/dev_check_quick.R")                     # Quick check (document + R CMD check)
+source("dev/dev_check_complete.R")                # Comprehensive check (with CRAN=TRUE)
+source("dev/test_run.R")                # Run tests quickly
+source("dev/dev_load.R")            # Load package for interactive use
 
 # Before committing
-source("dev/check_full.R")                # Full R CMD check with CRAN standards
+source("dev/dev_check_complete.R")                # Full R CMD check with CRAN standards
 source("dev/test_spelling.R")             # Check spelling
 ```
 
@@ -74,7 +74,7 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
 
 1. **Start development session:**
    ```r
-   source("dev/daily_load_all.R")
+   source("dev/dev_load.R")
    ```
    - Loads package functions into current R session
    - Use for interactive testing and development
@@ -82,7 +82,7 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
 
 2. **After making changes (quick iteration):**
    ```r
-   source("dev/check.R")
+   source("dev/dev_check_quick.R")
    ```
    - Updates documentation (roxygen2)
    - Runs R CMD check
@@ -91,7 +91,7 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
 
 3. **Quick test run:**
    ```r
-   source("dev/daily_test.R")
+   source("dev/test_run.R")
    ```
    - Runs test suite quickly
    - Faster than full check
@@ -102,11 +102,11 @@ Scripts are organized with **prefix-based naming** for easy discovery via autoco
 Run these before committing code:
 
 ```r
-source("dev/check_full.R")       # Full validation with CRAN=TRUE
+source("dev/dev_check_complete.R")       # Full validation with CRAN=TRUE
 source("dev/test_spelling.R")    # Check spelling
 ```
 
-**Note:** Use `check.R` for quick daily iterations, but always use `check_full.R` before commits and releases for comprehensive CRAN-level checking.
+**Note:** Use `dev_check_quick.R` for quick daily iterations, but always use `dev_check_complete.R` before commits and releases for comprehensive CRAN-level checking.
 
 All checks should pass (0 errors, 0 warnings, 0 notes) before committing. No exceptions!
 
@@ -115,7 +115,7 @@ All checks should pass (0 errors, 0 warnings, 0 notes) before committing. No exc
 ### Run All Tests
 
 ```r
-source("dev/test_run_all.R")
+source("dev/test_run.R")
 ```
 - Comprehensive test execution
 - Detailed output for each test
@@ -124,7 +124,7 @@ source("dev/test_run_all.R")
 ### Test with Coverage
 
 ```r
-source("dev/test_with_coverage.R")
+source("dev/test_coverage_report.R")
 ```
 - Runs tests + generates coverage report
 - Opens interactive HTML report in browser
@@ -147,10 +147,10 @@ Before starting the release process, ensure:
 ### Code Quality Checks
 
 ```r
-source("dev/check_full.R")            # Must pass with 0/0/0 (CRAN=TRUE)
-source("dev/check_good_practice.R")   # Review recommendations
+source("dev/dev_check_complete.R")            # Must pass with 0/0/0 (CRAN=TRUE)
+source("dev/check_best_practices.R")   # Review recommendations
 source("dev/test_spelling.R")         # Fix all errors
-source("dev/test_with_coverage.R")    # Check coverage >80%
+source("dev/test_coverage_report.R")    # Check coverage >80%
 ```
 
 ### Documentation
@@ -158,15 +158,15 @@ source("dev/test_with_coverage.R")    # Check coverage >80%
 ```r
 source("dev/build_readme.R")          # If README.Rmd exists
 source("dev/build_vignettes.R")       # If vignettes exist
-source("dev/pkgdown_build_site.R")    # Build pkgdown site
+source("dev/build_website.R")    # Build pkgdown site
 ```
 
 ### Analysis (Optional)
 
 ```r
-source("dev/analyze_package_structure.R")  # Review package metrics
-source("dev/analyze_code_quality.R")       # Static analysis
-source("dev/analyze_dependencies.R")       # Dependency visualization
+source("dev/report_package_structure.R")  # Review package metrics
+source("dev/report_code_quality.R")       # Static analysis
+source("dev/report_dependencies.R")       # Dependency visualization
 ```
 
 ## CRAN Release Workflow
@@ -270,7 +270,7 @@ source("dev/release_04_submit_to_cran.R")
 **What it does:** Documents the initial package setup process
 **Notes:** **DON'T RUN THIS!** It's a reference script showing how the package template was created, not meant to be executed.
 
-#### `setup_rcpp_infrastructure.R`
+#### `setup_cpp_support.R`
 **When to use:** Adding C++ code to your package via Rcpp
 **What it does:** Configures package for Rcpp, creates example C++ functions
 **Time:** 1-2 minutes
@@ -286,7 +286,7 @@ source("dev/release_04_submit_to_cran.R")
 - Includes debugging tips, performance notes, and common patterns
 - Links to Rcpp resources and documentation
 
-#### `install_dev_dependencies.R`
+#### `setup_install_tools.R`
 **When to use:** First time setup, or to update dev packages
 **What it does:** Installs all required development packages
 **Time:** 5-10 minutes first run
@@ -296,25 +296,25 @@ source("dev/release_04_submit_to_cran.R")
 
 ### Daily Development
 
-#### `check.R`
+#### `dev_check_quick.R`
 **When to use:** After making code changes (quick iteration workflow)
 **What it does:** Updates documentation + runs R CMD check
 **Time:** 30-60 seconds
 **Notes:** Run this frequently during development for quick iterations
 
-#### `check_full.R`
+#### `dev_check_complete.R`
 **When to use:** Before committing or releasing code
 **What it does:** Updates documentation + runs R CMD check with CRAN=TRUE
 **Time:** 30-90 seconds
-**Notes:** More comprehensive than `check.R`; catches CRAN-specific issues
+**Notes:** More comprehensive than `dev_check_quick.R`; catches CRAN-specific issues
 
-#### `daily_test.R`
+#### `test_run.R`
 **When to use:** Quick test execution during development
 **What it does:** Loads package and runs all tests
 **Time:** 5-15 seconds
 **Notes:** Faster than full check
 
-#### `daily_load_all.R`
+#### `dev_load.R`
 **When to use:** Interactive development and testing
 **What it does:** Loads package functions into current R session
 **Time:** <1 second
@@ -324,13 +324,13 @@ source("dev/release_04_submit_to_cran.R")
 
 ### Testing Suite
 
-#### `test_run_all.R`
+#### `test_run.R`
 **When to use:** Before committing code
 **What it does:** Runs complete test suite with detailed output
 **Time:** Varies by test complexity
-**Notes:** More detailed than `daily_test.R`
+**Notes:** More detailed than `test_run.R`
 
-#### `test_with_coverage.R`
+#### `test_coverage_report.R`
 **When to use:** Checking test coverage
 **What it does:** Runs tests + generates interactive coverage report
 **Time:** 2x test execution time
@@ -346,31 +346,31 @@ source("dev/release_04_submit_to_cran.R")
 
 ### Checking Suite
 
-#### `check.R` and `check_full.R`
+#### `dev_check_quick.R` and `dev_check_complete.R`
 See [Daily Development](#daily-development) section above for details.
-- **check.R**: Quick iteration workflow
-- **check_full.R**: Comprehensive checking with CRAN=TRUE (use before commits/releases)
+- **dev_check_quick.R**: Quick iteration workflow
+- **dev_check_complete.R**: Comprehensive checking with CRAN=TRUE (use before commits/releases)
 **Notes:** Must pass with 0/0/0 before release (no shortcuts here!)
 
-#### `check_win_devel.R`
+#### `check_on_windows.R`
 **When to use:** Before CRAN submission (or use release workflow)
 **What it does:** Submits to Windows R-devel builder
 **Time:** 15-60 minutes (remote)
 **Notes:** Results emailed to maintainer
 
-#### `check_mac_release.R`
+#### `check_on_mac.R`
 **When to use:** Before CRAN submission (or use release workflow)
 **What it does:** Submits to macOS R-release builder
 **Time:** 15-60 minutes (remote)
 **Notes:** Results emailed to maintainer
 
-#### `check_rhub_multi_platform.R`
+#### `check_on_all_platforms.R`
 **When to use:** Comprehensive cross-platform testing
 **What it does:** Checks on 20+ platforms via R-Hub
 **Time:** 15-60 minutes (remote)
 **Notes:** First-time users run `rhub::rhub_setup()` first
 
-#### `check_good_practice.R`
+#### `check_best_practices.R`
 **When to use:** Before release, periodic quality checks
 **What it does:** Analyzes package for best practices
 **Time:** 1-3 minutes
@@ -393,14 +393,14 @@ See [Daily Development](#daily-development) section above for details.
 **Output:** `inst/doc/` directory
 **Notes:**
 - Only runs if vignettes exist in `vignettes/` directory
-- Files in `vignettes/articles/` are pkgdown articles (web-only, see `pkgdown_build_site.R`)
+- Files in `vignettes/articles/` are pkgdown articles (web-only, see `build_website.R`)
 - Template includes example article: `vignettes/articles/article.Rmd`
 
 ---
 
 ### Pkgdown Website
 
-#### `pkgdown_build_site.R`
+#### `build_website.R`
 **When to use:** After documentation updates
 **What it does:** Builds pkgdown website
 **Time:** 10-30 seconds
@@ -411,7 +411,7 @@ See [Daily Development](#daily-development) section above for details.
 - Articles are web-only documentation (not included in package installation)
 - Replace example article with your own topic-specific documentation
 
-#### `pkgdown_customize_site.R`
+#### `help_customize_website.R`
 **When to use:** Setting up or customizing package website
 **What it does:** Interactive guide to pkgdown customization
 **Time:** Educational/reference (doesn't modify files)
@@ -446,32 +446,32 @@ See [CRAN Release Workflow](#cran-release-workflow) section above for detailed s
 
 ### Analysis Tools
 
-#### `analyze_code_coverage.R`
+#### `test_coverage_report.R`
 **When to use:** Detailed coverage analysis
 **What it does:** Calculates test coverage, optional HTML report
 **Time:** Varies by test complexity
-**Notes:** Similar to `test_with_coverage.R` but standalone
+**Notes:** Similar to `test_coverage_report.R` but standalone
 
-#### `analyze_dependencies.R`
+#### `report_dependencies.R`
 **When to use:** Understanding package architecture
 **What it does:** Creates visual dependency network with pkgnet
 **Time:** 1-2 minutes
 **Output:** `dev/dependency_report.html`
 **Notes:** Useful for identifying tightly coupled functions
 
-#### `analyze_package_structure.R`
+#### `report_package_structure.R`
 **When to use:** Reviewing package metrics
 **What it does:** Counts functions, files, documentation coverage
 **Time:** Few seconds
 **Notes:** Helps identify documentation gaps
 
-#### `analyze_performance.R`
+#### `template_benchmarking.R`
 **When to use:** Benchmarking and profiling
 **What it does:** Provides templates for microbenchmark and profvis
 **Time:** Depends on benchmarks
 **Notes:** **TEMPLATE SCRIPT**—won't do anything until you customize it for your functions!
 
-#### `analyze_code_quality.R`
+#### `report_code_quality.R`
 **When to use:** Static code analysis
 **What it does:** Checks for coding issues with codetools
 **Time:** Few seconds
@@ -481,7 +481,7 @@ See [CRAN Release Workflow](#cran-release-workflow) section above for detailed s
 
 ### Linting Tools
 
-#### `install_linter_jarl.R`
+#### `help_install_jarl.R`
 **When to use:** Setting up fast Rust-based linting
 **What it does:** Provides instructions to install jarl command-line linter
 **Time:** Few seconds (displays instructions only)
@@ -534,7 +534,7 @@ jarl lint path/to/file.R  # Lint single file
 - Especially useful for documenting code examples in function documentation
 - Works like RStudio's native comment shortcut but for roxygen2 format
 - Can assign custom keyboard shortcut in RStudio: Tools → Modify Keyboard Shortcuts
-- Install: Already included in `dev/install_dev_dependencies.R`
+- Install: Already included in `dev/setup_install_tools.R`
 
 ---
 
@@ -551,17 +551,17 @@ jarl lint path/to/file.R  # Lint single file
 - Searches all .R files in package directory
 - Common markers: TODO, FIXME, CHANGED, IDEA, HACK, NOTE, REVIEW
 - Helps track incomplete implementations and known issues
-- Install: Already included in `dev/install_dev_dependencies.R`
+- Install: Already included in `dev/setup_install_tools.R`
 
 ---
 
-#### `create_example_data.R`
+#### `template_create_dataset.R`
 
 **When to use:** Creating example datasets for package documentation, vignettes, or testing
 **What it does:** Template script for generating and documenting example datasets
 **Time:** Few seconds (plus time to create your data)
 **How to use:**
-1. Run: `source("dev/create_example_data.R")`
+1. Run: `source("dev/template_create_dataset.R")`
 2. Modify the data generation code to create your actual dataset
 3. Document the dataset in `R/data.R` with roxygen2 comments
 4. Run `devtools::document()` to generate help file
@@ -582,7 +582,7 @@ jarl lint path/to/file.R  # Lint single file
 **Example workflow:**
 ```r
 # 1. Run script to create example data
-source("dev/create_example_data.R")
+source("dev/template_create_dataset.R")
 
 # 2. Edit R/data.R to document the dataset
 # (See the file for roxygen2 documentation template)
@@ -598,13 +598,13 @@ data(dummy_df)
 
 ---
 
-#### `create_example_function.R`
+#### `template_create_function.R`
 
 **When to use:** Creating new functions with proper roxygen2 documentation structure
 **What it does:** Template script for generating well-documented functions following package conventions
 **Time:** Few seconds
 **How to use:**
-1. Run: `source("dev/create_example_function.R")`
+1. Run: `source("dev/template_create_function.R")`
 2. Review the generated function in `R/lm_model.R`
 3. Modify function code and documentation for your needs
 4. Run `devtools::document()` to generate help files
@@ -630,7 +630,7 @@ data(dummy_df)
 **Example workflow:**
 ```r
 # 1. Create example function
-source("dev/create_example_function.R")
+source("dev/template_create_function.R")
 
 # 2. Review and customize R/lm_model.R
 
@@ -651,7 +651,7 @@ lm_model()
 
 Most scripts check for required packages and provide installation instructions if missing.
 
-**Core development tools** (installed by `install_dev_dependencies.R`):
+**Core development tools** (installed by `setup_install_tools.R`):
 - devtools
 - roxygen2
 - usethis
@@ -671,7 +671,7 @@ Most scripts check for required packages and provide installation instructions i
 
 1. **Install dependencies:**
    ```r
-   source("dev/install_dev_dependencies.R")
+   source("dev/setup_install_tools.R")
    ```
 
 2. **Configure R-Hub (for rhub checks):**
@@ -691,10 +691,10 @@ Most scripts check for required packages and provide installation instructions i
 
 ```r
 # Good - from package root
-source("dev/daily_test.R")
+source("dev/test_run.R")
 
 # Bad - from dev/ directory
-source("daily_test.R")  # Will fail with cryptic errors!
+source("test_run.R")  # Will fail with cryptic errors!
 ```
 
 ---
@@ -780,7 +780,7 @@ The agents complement but do not replace the development scripts:
 # 1. Write/modify function
 # 2. Ask roxygen-doc-reviewer to check documentation
 # 3. Run quick check
-source("dev/check.R")
+source("dev/dev_check_quick.R")
 
 # ... later, preparing for CRAN ...
 
@@ -818,27 +818,27 @@ Type the prefix and use tab completion to see all related scripts:
 
 **Before committing code:**
 ```r
-source("dev/check_full.R")
+source("dev/dev_check_complete.R")
 source("dev/test_spelling.R")
 ```
 
 **Before pushing to remote:**
 ```r
-source("dev/check_full.R")
-source("dev/test_run_all.R")
+source("dev/dev_check_complete.R")
+source("dev/test_run.R")
 ```
 
 **After documentation changes:**
 ```r
-source("dev/pkgdown_build_site.R")
+source("dev/build_website.R")
 source("dev/build_readme.R")  # if README.Rmd exists
 ```
 
 **Periodic quality checks:**
 ```r
-source("dev/check_good_practice.R")
-source("dev/analyze_code_quality.R")
-source("dev/test_with_coverage.R")
+source("dev/check_best_practices.R")
+source("dev/report_code_quality.R")
+source("dev/test_coverage_report.R")
 ```
 
 ### Script Execution Order
@@ -854,7 +854,7 @@ source("dev/test_with_coverage.R")
 ### Customization
 
 **Template scripts** (customize for your package):
-- `analyze_performance.R` - Add your benchmarks
+- `template_benchmarking.R` - Add your benchmarks
 - `setup_new_package.R` - Reference only, adapt for new packages
 
 **Configuration files** (customize as needed):
@@ -866,7 +866,7 @@ source("dev/test_with_coverage.R")
 
 **Script fails with "package not found":**
 - Install required package: `install.packages("packagename")`
-- Or run: `source("dev/install_dev_dependencies.R")` to install everything at once
+- Or run: `source("dev/setup_install_tools.R")` to install everything at once
 
 **Remote checks don't arrive:**
 - Check spam folder (seriously, check it!)
@@ -878,7 +878,7 @@ source("dev/test_with_coverage.R")
 - Or use `utils::globalVariables()` for intentional globals
 
 **Performance scripts have errors:**
-- `analyze_performance.R` is a template—it won't work until you customize it!
+- `template_benchmarking.R` is a template—it won't work until you customize it!
 - Uncomment and modify the templates for your actual functions
 
 ---

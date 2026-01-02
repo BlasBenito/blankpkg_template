@@ -49,14 +49,14 @@
 #' @examples
 #' \dontrun{
 #' # Generate coverage report
-#' test_with_coverage()
+#' test_coverage_report()
 #'
 #' # Review the interactive HTML report that opens
 #' # Identify red (untested) code
 #' # Write tests for uncovered functionality
 #' # Rerun to verify improvement
 #' }
-test_with_coverage <- function() {
+test_coverage_report <- function() {
   # Check and install dependencies
   if (!requireNamespace("covr", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg covr}")

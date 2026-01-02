@@ -32,10 +32,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' setup_rcpp_infrastructure()
+#' setup_cpp_support()
 #' devtools::document()
 #' }
-setup_rcpp_infrastructure <- function() {
+setup_cpp_support <- function() {
   # Check prerequisites
   if (!requireNamespace("usethis", quietly = TRUE)) {
     utils::install.packages('usethis')

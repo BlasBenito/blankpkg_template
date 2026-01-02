@@ -46,7 +46,7 @@
 #' @examples
 #' \dontrun{
 #' # Analyze package dependencies
-#' analyze_dependencies()
+#' report_dependencies()
 #'
 #' # Report opens in browser automatically
 #' # Review:
@@ -55,7 +55,7 @@
 #' # - Complexity metrics
 #' # - Tightly coupled code sections
 #' }
-analyze_dependencies <- function() {
+report_dependencies <- function() {
   # Helper function to detect package name
   get_package_name <- function() {
     # Method 1: desc package

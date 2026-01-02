@@ -50,12 +50,12 @@
 #' @examples
 #' \dontrun{
 #' # Basic setup (no VS Code integration)
-#' install_formatter_air()
+#' help_install_air()
 #'
 #' # With VS Code/Positron integration
 #' install_formatter_air(vscode = TRUE)
 #' }
-install_formatter_air <- function(vscode = FALSE) {
+help_install_air <- function(vscode = FALSE) {
   # Check for cli package
   if (!requireNamespace("cli", quietly = TRUE)) {
     utils::install.packages('cli')

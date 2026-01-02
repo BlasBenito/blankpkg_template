@@ -40,8 +40,8 @@ These functions will eventually be moved to a new package and published to CRAN,
 
 #### Daily Development (3 functions) ✓
 - [x] `daily_document_and_check.R` → Split into `check.R` and `check_full.R`
-- [x] `daily_test.R` - Run quick test suite
-- [x] `daily_load_all.R` - Load package for interactive development
+- [x] `test_run.R` - Run quick test suite
+- [x] `dev_load.R` - Load package for interactive development
 
 #### Testing Suite (3 functions) ✓
 - [x] `test_run_all.R` - Run complete test suite with detailed output
@@ -50,9 +50,9 @@ These functions will eventually be moved to a new package and published to CRAN,
 
 #### Checking Suite (5 functions) ✓
 - [x] `check.R` and `check_full.R` - Local R CMD check (replaced `check_local.R`)
-- [x] `check_good_practice.R` - Analyze package for R best practices
-- [x] `check_win_devel.R` - Submit to Windows R-devel builder
-- [x] `check_mac_release.R` - Submit to macOS R-release builder
+- [x] `check_best_practices.R` - Analyze package for R best practices
+- [x] `check_on_windows.R` - Submit to Windows R-devel builder
+- [x] `check_on_mac.R` - Submit to macOS R-release builder
 - [x] `check_rhub_multi_platform.R` - Multi-platform checks via R-Hub
 
 #### Build Tools (2 functions) ✓
@@ -70,8 +70,8 @@ These functions will eventually be moved to a new package and published to CRAN,
 - [x] `release_04_submit_to_cran.R` - Final CRAN submission
 
 #### Analysis Tools (5 functions) ✓
-- [x] `analyze_code_coverage.R` - Calculate and display test coverage
-- [x] `analyze_code_quality.R` - Static code analysis with codetools
+- [x] `test_coverage_report.R` - Calculate and display test coverage
+- [x] `report_code_quality.R` - Static code analysis with codetools
 - [x] `analyze_dependencies.R` - Create interactive dependency network graph
 - [x] `analyze_package_structure.R` - Analyze package organization and metrics
 - [x] `analyze_performance.R` - Benchmarking and profiling template
@@ -95,7 +95,7 @@ Follow these guidelines when converting scripts to functions (based on successfu
 ### Function Design
 1. **Remove all arguments** - Functions should have no parameters or minimal parameters with sensible defaults
 2. **Keep it simple** - Prioritize speed and simplicity over configurability
-3. **Use consistent naming** - Function name should match the script name (e.g., `daily_test.R` → `daily_test()`)
+3. **Use consistent naming** - Function name should match the script name (e.g., `test_run.R` → `test_run()`)
 
 ### Documentation
 4. **Complete roxygen2 documentation** - Include all standard tags:

@@ -52,7 +52,7 @@
 #' @examples
 #' \dontrun{
 #' # Create the example function
-#' create_example_function()
+#' template_create_function()
 #'
 #' # After running:
 #' # 1. Review R/lm_model.R
@@ -61,7 +61,7 @@
 #' # 4. Try ?lm_model
 #' # 5. Add tests in tests/testthat/
 #' }
-create_example_function <- function() {
+template_create_function <- function() {
   # Print header
   cli::cli_rule(
     left = "CREATE EXAMPLE FUNCTION"

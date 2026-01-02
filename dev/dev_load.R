@@ -35,7 +35,7 @@
 #'
 #' @section Typical Workflow:
 #' 1. Edit function code in `R/` directory
-#' 2. Run `daily_load_all()` to load changes
+#' 2. Run `dev_load()` to load changes
 #' 3. Test functions interactively in console
 #' 4. Repeat until satisfied
 #' 5. Run `check()` to update docs and verify package
@@ -46,16 +46,16 @@
 #' @examples
 #' \dontrun{
 #' # Load package for interactive development
-#' daily_load_all()
+#' dev_load()
 #'
 #' # Now test your functions interactively
 #' my_function(test_data)
 #'
 #' # Make changes to R/my_function.R
 #' # Then reload:
-#' daily_load_all()
+#' dev_load()
 #' }
-daily_load_all <- function() {
+dev_load <- function() {
   # Check and install dependencies
   if (!requireNamespace("devtools", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg devtools}")
@@ -92,7 +92,7 @@ daily_load_all <- function() {
     "Package functions are now available for interactive use"
   )
   cli::cli_alert_info(
-    "Modify code and rerun {.code daily_load_all()} to reload changes"
+    "Modify code and rerun {.code dev_load()} to reload changes"
   )
   cli::cli_rule()
 

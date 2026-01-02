@@ -81,7 +81,7 @@ The template includes `lm_model()` as demonstration code:
 - [ ] **Delete** this file after reviewing
 - [ ] Write tests for your own functions
 - [ ] Use `dev/create_example_function.R` as template for test structure
-- [ ] Run `source("dev/daily_test.R")` to verify tests pass
+- [ ] Run `source("dev/test_run.R")` to verify tests pass
 
 ---
 
@@ -145,7 +145,7 @@ Run these development scripts to ensure quality:
 - [ ] `source("dev/check_local.R")` - **MUST PASS** with 0 errors, 0 warnings, 0 notes (or acceptable notes)
 - [ ] `source("dev/test_spelling.R")` - Fix any spelling errors (add valid words to `inst/WORDLIST`)
 - [ ] `source("dev/test_with_coverage.R")` - Review test coverage (aim for >70%)
-- [ ] `source("dev/check_good_practice.R")` - Address recommendations
+- [ ] `source("dev/check_best_practices.R")` - Address recommendations
 
 If any checks fail, fix issues and re-run.
 
@@ -186,8 +186,8 @@ The template includes comprehensive CRAN release workflow scripts. **If you plan
 ## Quick Reference: Development Scripts
 
 **Daily Workflow (Most Used):**
-- `daily_load_all.R` - Load package for interactive development
-- `daily_test.R` - Run all tests quickly (5-15 seconds)
+- `dev_load.R` - Load package for interactive development
+- `test_run.R` - Run all tests quickly (5-15 seconds)
 - `daily_document_and_check.R` - **PRIMARY WORKFLOW** - Update docs + R CMD check (30-60 seconds)
 
 **Quality Checks:**
@@ -228,7 +228,7 @@ The template includes comprehensive CRAN release workflow scripts. **If you plan
 ### Tests failing after customization?
 - Delete `tests/testthat/test-lm_model.R` (it tests the example function)
 - Ensure your test files follow naming: `test-yourfunction.R`
-- Run `source("dev/daily_test.R")` for quick feedback
+- Run `source("dev/test_run.R")` for quick feedback
 
 ---
 

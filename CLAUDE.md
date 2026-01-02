@@ -86,9 +86,9 @@ Task(subagent_type="cran-submission-expert",
 ### Quick Reference (Most Common)
 ```r
 # Daily workflow (use these frequently)
-source("dev/daily_document_and_check.R")  # Update docs + R CMD check
-source("dev/daily_test.R")                # Run tests quickly
-source("dev/daily_load_all.R")            # Load package for interactive use
+source("dev/daily_document_and_dev_check_quick.R")  # Update docs + R CMD check
+source("dev/test_run.R")                # Run tests quickly
+source("dev/dev_load.R")            # Load package for interactive use
 
 # Before committing
 source("dev/check_local.R")               # Full R CMD check
@@ -129,42 +129,42 @@ devtools::check()           # R CMD check (required before completion)
 **Key Pattern:** Type prefix (e.g., `daily_`) + TAB to discover all related scripts
 
 **Special Scripts:**
-- `setup_rcpp_infrastructure.R` - Configure package for C++ code with Rcpp (checks compiler, creates examples)
-- `install_linter_jarl.R` - Install jarl CLI linter (Rust-based, 140x faster than lintr)
-- `pkgdown_customize_site.R` - Interactive guide with templates for website customization
+- `setup_cpp_support.R` - Configure package for C++ code with Rcpp (checks compiler, creates examples)
+- `help_install_jarl.R` - Install jarl CLI linter (Rust-based, 140x faster than lintr)
+- `help_customize_website.R` - Interactive guide with templates for website customization
 
 ## Complete Scripts Reference
 
 ### Setup & Installation (4 scripts)
 - `setup_new_package.R` - Reference documentation of package creation steps (DO NOT RUN - historical reference only)
-- `setup_rcpp_infrastructure.R` - Configure package for C++ code with Rcpp; checks compiler, creates src/ directory with example functions
-- `install_dev_dependencies.R` - Install all development packages (devtools, roxygen2, usethis, etc.) with parallel installation
-- `install_linter_jarl.R` - Display installation instructions for jarl CLI linter (Rust-based, 140x faster than lintr)
+- `setup_cpp_support.R` - Configure package for C++ code with Rcpp; checks compiler, creates src/ directory with example functions
+- `setup_install_tools.R` - Install all development packages (devtools, roxygen2, usethis, etc.) with parallel installation
+- `help_install_jarl.R` - Display installation instructions for jarl CLI linter (Rust-based, 140x faster than lintr)
 
 ### Daily Development (3 scripts - MOST USED)
-- `daily_document_and_check.R` - **Most common workflow:** Update documentation with roxygen2 + run R CMD check (30-60 sec)
-- `daily_test.R` - Quick test execution: loads package + runs all tests (5-15 sec)
-- `daily_load_all.R` - Load package functions into current R session for interactive development (<1 sec)
+- `daily_document_and_dev_check_quick.R` - **Most common workflow:** Update documentation with roxygen2 + run R CMD check (30-60 sec)
+- `test_run.R` - Quick test execution: loads package + runs all tests (5-15 sec)
+- `dev_load.R` - Load package functions into current R session for interactive development (<1 sec)
 
 ### Testing Suite (3 scripts)
-- `test_run_all.R` - Run complete test suite with detailed output; similar to daily_test.R but preserves console history
-- `test_with_coverage.R` - Run tests + generate interactive HTML coverage report; highlights untested code in red
+- `test_run.R` - Run complete test suite with detailed output; similar to test_run.R but preserves console history
+- `test_coverage_report.R` - Run tests + generate interactive HTML coverage report; highlights untested code in red
 - `test_spelling.R` - Check all documentation for spelling errors; add valid words to inst/WORDLIST
 
 ### Checking Suite (5 scripts)
 - `check_local.R` - Full R CMD check locally; must pass 0/0/0 before committing or releasing (30-90 sec)
-- `check_good_practice.R` - Analyze package for R best practices using goodpractice; recommendations are suggestions not requirements
-- `check_win_devel.R` - Submit to Windows R-devel builder; results emailed in 15-60 min
-- `check_mac_release.R` - Submit to macOS R-release builder; results emailed in 15-60 min
-- `check_rhub_multi_platform.R` - Comprehensive multi-platform checks on 20+ platforms via R-Hub (requires GITHUB_PAT)
+- `check_best_practices.R` - Analyze package for R best practices using goodpractice; recommendations are suggestions not requirements
+- `check_on_windows.R` - Submit to Windows R-devel builder; results emailed in 15-60 min
+- `check_on_mac.R` - Submit to macOS R-release builder; results emailed in 15-60 min
+- `check_on_all_platforms.R` - Comprehensive multi-platform checks on 20+ platforms via R-Hub (requires GITHUB_PAT)
 
 ### Build Tools (2 scripts)
 - `build_readme.R` - Render README.Rmd to README.md; executes code chunks and updates output
 - `build_vignettes.R` - Build all vignettes to inst/doc/; runs R code in vignettes
 
 ### Pkgdown Website (2 scripts)
-- `pkgdown_build_site.R` - Build complete package website to docs/ directory (10-30 sec)
-- `pkgdown_customize_site.R` - Interactive guide with templates for customizing _pkgdown.yml; 20+ themes, navigation, reference organization
+- `build_website.R` - Build complete package website to docs/ directory (10-30 sec)
+- `help_customize_website.R` - Interactive guide with templates for customizing _pkgdown.yml; 20+ themes, navigation, reference organization
 
 ### Release Workflow (4 scripts - MUST RUN IN ORDER)
 - `release_01_prepare.R` - **Step 1/4:** Checklist for version update, NEWS.md, spell check, documentation review
@@ -173,15 +173,15 @@ devtools::check()           # R CMD check (required before completion)
 - `release_04_submit_to_cran.R` - **Step 4/4:** Final CRAN submission via devtools::release(); includes post-submission checklist
 
 ### Analysis Tools (5 scripts)
-- `analyze_code_coverage.R` - Calculate test coverage; displays percentage per file with optional HTML report
-- `analyze_code_quality.R` - Static code analysis with codetools; identifies global variables, undefined vars, suspicious constructs
-- `analyze_dependencies.R` - Create interactive dependency network graph with pkgnet; saves to dev/dependency_report.html
-- `analyze_package_structure.R` - Count functions, files, documentation coverage; identifies undocumented functions
-- `analyze_performance.R` - **TEMPLATE SCRIPT:** Provides templates for microbenchmark and profvis; customize before use
+- `test_coverage_report.R` - Calculate test coverage; displays percentage per file with optional HTML report
+- `report_code_quality.R` - Static code analysis with codetools; identifies global variables, undefined vars, suspicious constructs
+- `report_dependencies.R` - Create interactive dependency network graph with pkgnet; saves to dev/dependency_report.html
+- `report_package_structure.R` - Count functions, files, documentation coverage; identifies undocumented functions
+- `template_benchmarking.R` - **TEMPLATE SCRIPT:** Provides templates for microbenchmark and profvis; customize before use
 
 ### Development Helpers (2 scripts)
-- `create_example_data.R` - Template for creating example datasets; uses usethis::use_data() and shows documentation pattern
-- `create_example_function.R` - Template for creating well-documented functions; includes complete roxygen2 example with validation
+- `template_create_dataset.R` - Template for creating example datasets; uses usethis::use_data() and shows documentation pattern
+- `template_create_function.R` - Template for creating well-documented functions; includes complete roxygen2 example with validation
 
 ## Package Configuration
 

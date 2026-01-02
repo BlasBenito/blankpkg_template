@@ -52,13 +52,13 @@
 #' @examples
 #' \dontrun{
 #' # View customization guide
-#' pkgdown_customize_site()
+#' help_customize_website()
 #'
 #' # Follow templates to edit _pkgdown.yml
 #' # Then build site:
 #' pkgdown_build_site()
 #' }
-pkgdown_customize_site <- function() {
+help_customize_website <- function() {
   # Check and install dependencies
   if (!requireNamespace("pkgdown", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg pkgdown}")

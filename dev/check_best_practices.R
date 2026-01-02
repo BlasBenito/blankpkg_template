@@ -54,13 +54,13 @@
 #' @examples
 #' \dontrun{
 #' # Run best practices analysis
-#' check_good_practice()
+#' check_best_practices()
 #'
 #' # Review recommendations and implement critical ones
 #' # Rerun to verify improvements
-#' check_good_practice()
+#' check_best_practices()
 #' }
-check_good_practice <- function() {
+check_best_practices <- function() {
   # Check and install dependencies
   if (!requireNamespace("goodpractice", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg goodpractice}")

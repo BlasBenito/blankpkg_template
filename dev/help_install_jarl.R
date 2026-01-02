@@ -42,10 +42,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' install_linter_jarl()
+#' help_install_jarl()
 #' # Then run the displayed command in your terminal
 #' }
-install_linter_jarl <- function() {
+help_install_jarl <- function() {
   # TODO: Future enhancement (Option 2 - Automated installation)
   # ============================================================
   # Consider adding automated installation using system() calls:

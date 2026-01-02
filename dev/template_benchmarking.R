@@ -52,7 +52,7 @@
 #' @examples
 #' \dontrun{
 #' # Display benchmarking templates
-#' analyze_performance()
+#' template_benchmarking()
 #'
 #' # Then customize the templates for your functions:
 #' # benchmark_result <- microbenchmark::microbenchmark(
@@ -62,7 +62,7 @@
 #' # )
 #' # print(benchmark_result)
 #' }
-analyze_performance <- function() {
+template_benchmarking <- function() {
   # Check and install dependencies
   required_packages <- c("microbenchmark", "profvis", "devtools")
   for (pkg in required_packages) {

@@ -56,7 +56,7 @@
 #' @examples
 #' \dontrun{
 #' # Create the example dataset
-#' create_example_data()
+#' template_create_dataset()
 #'
 #' # After running:
 #' # 1. Review data/dummy_df.rda
@@ -64,7 +64,7 @@
 #' # 3. Run devtools::document()
 #' # 4. Test with data(dummy_df)
 #' }
-create_example_data <- function() {
+template_create_dataset <- function() {
   # Check and install dependencies
   if (!requireNamespace("usethis", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg usethis}")

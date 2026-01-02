@@ -83,35 +83,35 @@ Without these packages and their dedicated maintainers, modern R package develop
 All functions are in the `dev/` folder with prefix-based naming for easy discovery via autocomplete:
 
 **Setup & Installation (4 functions)**
-- `setup_rcpp_infrastructure.R` - Configure Rcpp infrastructure for C++ code
-- `install_dev_dependencies.R` - Install all development packages
-- `install_linter_jarl.R` - Display jarl linter installation instructions
-- `install_formatter_air.R` - Install air formatter (wraps usethis::use_air())
+- `setup_cpp_support.R` - Configure Rcpp infrastructure for C++ code
+- `setup_install_tools.R` - Install all development packages
+- `help_install_jarl.R` - Display jarl linter installation instructions
+- `help_install_air.R` - Install air formatter (wraps usethis::use_air())
 
 **Daily Development (3 functions)**
-- `check.R` and `check_full.R` - Quick vs comprehensive checks (replaced `daily_document_and_check.R`)
-- `daily_test.R` - Run quick test suite
-- `daily_load_all.R` - Load package for interactive development
+- `dev_check_quick.R` and `dev_check_complete.R` - Quick vs comprehensive checks (replaced `daily_document_and_dev_check_quick.R`)
+- `test_run.R` - Run quick test suite
+- `dev_load.R` - Load package for interactive development
 
 **Testing Suite (3 functions)**
-- `test_run_all.R` - Run complete test suite with detailed output
-- `test_with_coverage.R` - Run tests with HTML coverage report
+- `test_run.R` - Run complete test suite with detailed output
+- `test_coverage_report.R` - Run tests with HTML coverage report
 - `test_spelling.R` - Check spelling in all documentation
 
 **Checking Suite (5 functions)**
-- `check.R` and `check_full.R` - Local R CMD check (quick vs comprehensive)
-- `check_good_practice.R` - Analyze package for R best practices
-- `check_win_devel.R` - Submit to Windows R-devel builder
-- `check_mac_release.R` - Submit to macOS R-release builder
-- `check_rhub_multi_platform.R` - Multi-platform checks via R-Hub (20+ platforms)
+- `dev_check_quick.R` and `dev_check_complete.R` - Local R CMD check (quick vs comprehensive)
+- `check_best_practices.R` - Analyze package for R best practices
+- `check_on_windows.R` - Submit to Windows R-devel builder
+- `check_on_mac.R` - Submit to macOS R-release builder
+- `check_on_all_platforms.R` - Multi-platform checks via R-Hub (20+ platforms)
 
 **Build Tools (2 functions)**
 - `build_readme.R` - Render README.Rmd to README.md
 - `build_vignettes.R` - Build all vignettes to inst/doc/
 
 **Pkgdown Website (2 functions)**
-- `pkgdown_build_site.R` - Build complete package website
-- `pkgdown_customize_site.R` - Interactive guide for customizing _pkgdown.yml
+- `build_website.R` - Build complete package website
+- `help_customize_website.R` - Interactive guide for customizing _pkgdown.yml
 
 **CRAN Release Workflow (4 functions)**
 - `release_01_prepare.R` - Preparation checklist (version, NEWS.md, spell check)
@@ -120,15 +120,15 @@ All functions are in the `dev/` folder with prefix-based naming for easy discove
 - `release_04_submit_to_cran.R` - Final CRAN submission
 
 **Analysis Tools (5 functions)**
-- `analyze_code_coverage.R` - Calculate and display test coverage
-- `analyze_code_quality.R` - Static code analysis with codetools
-- `analyze_dependencies.R` - Create interactive dependency network graph
-- `analyze_package_structure.R` - Analyze package organization and metrics
-- `analyze_performance.R` - Benchmarking and profiling template (TEMPLATE)
+- `test_coverage_report.R` - Calculate and display test coverage
+- `report_code_quality.R` - Static code analysis with codetools
+- `report_dependencies.R` - Create interactive dependency network graph
+- `report_package_structure.R` - Analyze package organization and metrics
+- `template_benchmarking.R` - Benchmarking and profiling template (TEMPLATE)
 
 **Development Helpers (2 functions)**
-- `create_example_data.R` - Template for creating package datasets (TEMPLATE)
-- `create_example_function.R` - Template for creating package functions (TEMPLATE)
+- `template_create_dataset.R` - Template for creating package datasets (TEMPLATE)
+- `template_create_function.R` - Template for creating package functions (TEMPLATE)
 
 ### 2. Pre-commit Hook System
 
@@ -215,12 +215,12 @@ source("dev/build_readme.R")
 ### Step 4: Install Development Dependencies
 
 ```r
-source("dev/install_dev_dependencies.R")
+source("dev/setup_install_tools.R")
 ```
 
 Optionally install the jarl linter (recommended):
 ```r
-source("dev/install_linter_jarl.R")
+source("dev/help_install_jarl.R")
 ```
 
 ### Step 5: Start Developing
@@ -228,23 +228,23 @@ source("dev/install_linter_jarl.R")
 Use the daily development functions:
 ```r
 # Most common workflow - quick check
-source("dev/check.R")
+source("dev/dev_check_quick.R")
 
 # For comprehensive checking (use before commits/releases)
-source("dev/check_full.R")
+source("dev/dev_check_complete.R")
 
 # Quick testing
-source("dev/daily_test.R")
+source("dev/test_run.R")
 
 # Interactive development
-source("dev/daily_load_all.R")
+source("dev/dev_load.R")
 ```
 
 ### Step 6: Customize pkgdown Website (Optional)
 
 If you want a package website:
 ```r
-source("dev/pkgdown_customize_site.R")
+source("dev/help_customize_website.R")
 ```
 
 This interactive script helps you configure themes, navigation, and function reference organization.
@@ -253,7 +253,7 @@ This interactive script helps you configure themes, navigation, and function ref
 
 Need to speed things up with C++?
 ```r
-source("dev/setup_rcpp_infrastructure.R")
+source("dev/setup_cpp_support.R")
 ```
 
 This sets up the complete Rcpp infrastructure with example functions to get you started.
@@ -265,10 +265,10 @@ This sets up the complete Rcpp infrastructure with example functions to get you 
 **Daily development:**
 ```r
 # Quick iteration
-source("dev/check.R")
+source("dev/dev_check_quick.R")
 
 # Comprehensive check (before commits/releases)
-source("dev/check_full.R")
+source("dev/dev_check_complete.R")
 ```
 
 **Before committing:**
@@ -341,8 +341,8 @@ Once you've customized the template for your package:
 3. Update DESCRIPTION with correct metadata
 4. Start writing your package functions in R/
 5. Add tests in tests/testthat/
-6. Use `source("dev/check.R")` regularly for quick iterations
-7. Use `source("dev/check_full.R")` before commits and releases
+6. Use `source("dev/dev_check_quick.R")` regularly for quick iterations
+7. Use `source("dev/dev_check_complete.R")` before commits and releases
 
 ## License
 

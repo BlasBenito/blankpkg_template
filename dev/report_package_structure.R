@@ -47,7 +47,7 @@
 #' @examples
 #' \dontrun{
 #' # Analyze package structure
-#' analyze_package_structure()
+#' report_package_structure()
 #'
 #' # Review output for:
 #' # - Function counts and export ratio
@@ -55,7 +55,7 @@
 #' # - Undocumented functions to address
 #' # - Overall package organization
 #' }
-analyze_package_structure <- function() {
+report_package_structure <- function() {
   # Helper function to detect package name
   get_package_name <- function() {
     if (requireNamespace("desc", quietly = TRUE)) {

@@ -48,13 +48,13 @@
 #' @examples
 #' \dontrun{
 #' # Submit to macOS R-release builder
-#' check_mac_release()
+#' check_on_mac()
 #'
 #' # Wait for email with results (15-60 minutes)
 #' # Review any macOS-specific issues
 #' # Fix problems and resubmit if needed
 #' }
-check_mac_release <- function() {
+check_on_mac <- function() {
   # Check and install dependencies
   if (!requireNamespace("devtools", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg devtools}")
@@ -83,10 +83,10 @@ check_mac_release <- function() {
   cli::cli_text()
 
   # Submit to mac-builder
-  cli::cli_alert_info("Running {.code devtools::check_mac_release()} ...")
+  cli::cli_alert_info("Running {.code devtools::check_on_mac()} ...")
   cli::cli_text()
 
-  devtools::check_mac_release()
+  devtools::check_on_mac()
 
   cli::cli_text()
   cli::cli_rule("SUBMISSION COMPLETE")

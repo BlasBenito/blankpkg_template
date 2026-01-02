@@ -48,13 +48,13 @@
 #' @examples
 #' \dontrun{
 #' # Submit to Windows R-devel builder
-#' check_win_devel()
+#' check_on_windows()
 #'
 #' # Wait for email with results (15-60 minutes)
 #' # Review any Windows-specific issues
 #' # Fix problems and resubmit if needed
 #' }
-check_win_devel <- function() {
+check_on_windows <- function() {
   # Check and install dependencies
   if (!requireNamespace("devtools", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg devtools}")
@@ -83,10 +83,10 @@ check_win_devel <- function() {
   cli::cli_text()
 
   # Submit to win-builder
-  cli::cli_alert_info("Running {.code devtools::check_win_devel()} ...")
+  cli::cli_alert_info("Running {.code devtools::check_on_windows()} ...")
   cli::cli_text()
 
-  devtools::check_win_devel()
+  devtools::check_on_windows()
 
   cli::cli_text()
   cli::cli_rule("SUBMISSION COMPLETE")

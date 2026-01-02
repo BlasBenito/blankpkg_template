@@ -72,7 +72,7 @@
 #' @examples
 #' \dontrun{
 #' # Build package website
-#' pkgdown_build_site()
+#' build_website()
 #'
 #' # Preview locally
 #' # Open docs/index.html in browser
@@ -82,7 +82,7 @@
 #' # git commit -m "Update website"
 #' # git push
 #' }
-pkgdown_build_site <- function() {
+build_website <- function() {
   # Check and install dependencies
   if (!requireNamespace("pkgdown", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg pkgdown}")

@@ -43,9 +43,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' install_dev_dependencies()
+#' setup_install_tools()
 #' }
-install_dev_dependencies <- function() {
+setup_install_tools <- function() {
   # Check for cli package
   if (!requireNamespace("cli", quietly = TRUE)) {
     utils::install.packages('cli')

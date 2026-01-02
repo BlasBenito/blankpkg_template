@@ -52,7 +52,7 @@
 #' @examples
 #' \dontrun{
 #' # Analyze all R code for potential issues
-#' analyze_code_quality()
+#' report_code_quality()
 #'
 #' # Typical workflow:
 #' # 1. Run analysis
@@ -61,7 +61,7 @@
 #' # 4. Document false positives
 #' # 5. Rerun to verify fixes
 #' }
-analyze_code_quality <- function() {
+report_code_quality <- function() {
   # Check and install dependencies
   if (!requireNamespace("codetools", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg codetools}")
