@@ -56,7 +56,6 @@
 #' install_formatter_air(vscode = TRUE)
 #' }
 install_formatter_air <- function(vscode = FALSE) {
-
   # Check for cli package
   if (!requireNamespace("cli", quietly = TRUE)) {
     utils::install.packages('cli')
@@ -115,20 +114,28 @@ install_formatter_air <- function(vscode = FALSE) {
   cli::cli_text("")
 
   cli::cli_h3("3. Configuration")
-  cli::cli_text("The {.file air.toml} file in your package root controls formatting options.")
+  cli::cli_text(
+    "The {.file air.toml} file in your package root controls formatting options."
+  )
   cli::cli_text("Edit this file to customize air's behavior.")
   cli::cli_text("")
 
   if (vscode) {
     cli::cli_h3("4. VS Code/Positron integration")
     cli::cli_alert_success("VS Code settings configured for air")
-    cli::cli_text("Air will be used automatically when formatting in VS Code/Positron.")
+    cli::cli_text(
+      "Air will be used automatically when formatting in VS Code/Positron."
+    )
     cli::cli_text("")
   }
 
   cli::cli_h3("Pre-commit hook integration")
-  cli::cli_text("If you have a pre-commit hook, air can format code automatically before commits.")
-  cli::cli_text("The pre-commit hook in this template already uses air if installed.")
+  cli::cli_text(
+    "If you have a pre-commit hook, air can format code automatically before commits."
+  )
+  cli::cli_text(
+    "The pre-commit hook in this template already uses air if installed."
+  )
   cli::cli_text("")
 
   cli::cli_h3("Resources")
@@ -141,7 +148,9 @@ install_formatter_air <- function(vscode = FALSE) {
 
   cli::cli_rule()
   cli::cli_text("")
-  cli::cli_alert_info("Air formatter configured! Install the CLI tool and run {.code air format .}")
+  cli::cli_alert_info(
+    "Air formatter configured! Install the CLI tool and run {.code air format .}"
+  )
   cli::cli_text("")
 
   invisible(TRUE)

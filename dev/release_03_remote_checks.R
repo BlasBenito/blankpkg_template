@@ -78,7 +78,9 @@ release_03_remote_checks <- function() {
   cli::cli_text()
 
   cli::cli_h2("IMPORTANT INFORMATION:")
-  cli::cli_text("This script will submit your package to remote checking services.")
+  cli::cli_text(
+    "This script will submit your package to remote checking services."
+  )
   cli::cli_text("Results will be emailed to the package maintainer.")
   cli::cli_text("Typical wait time: 15-60 minutes")
   cli::cli_text("Check your spam folder if results don't arrive.")
@@ -96,7 +98,9 @@ release_03_remote_checks <- function() {
       return(invisible(FALSE))
     }
   } else {
-    cli::cli_alert_info("Running in non-interactive mode - proceeding with submission...")
+    cli::cli_alert_info(
+      "Running in non-interactive mode - proceeding with submission..."
+    )
   }
 
   cli::cli_text()

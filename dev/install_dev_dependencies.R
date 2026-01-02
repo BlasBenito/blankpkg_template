@@ -89,7 +89,9 @@ install_dev_dependencies <- function() {
   cli::cli_text("")
 
   # Install packages
-  cli::cli_alert_info("Running {.code utils::install.packages()} with {ncores} core{?s} ...")
+  cli::cli_alert_info(
+    "Running {.code utils::install.packages()} with {ncores} core{?s} ..."
+  )
   cli::cli_text("")
 
   utils::install.packages(

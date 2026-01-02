@@ -144,7 +144,9 @@ analyze_performance <- function() {
   # Demonstration example
   cli::cli_h2("DEMONSTRATION EXAMPLE")
   cli::cli_text()
-  cli::cli_alert_info("Running {.code microbenchmark::microbenchmark()} demo ...")
+  cli::cli_alert_info(
+    "Running {.code microbenchmark::microbenchmark()} demo ..."
+  )
   cli::cli_text()
 
   # Simple example with base R functions

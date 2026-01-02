@@ -93,7 +93,9 @@ analyze_code_quality <- function() {
     cli::cli_abort("No R files to analyze")
   }
 
-  cli::cli_alert_info("Running {.code codetools::checkUsage()} on all functions ...")
+  cli::cli_alert_info(
+    "Running {.code codetools::checkUsage()} on all functions ..."
+  )
   cli::cli_text()
 
   # Track issues found

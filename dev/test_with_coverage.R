@@ -96,7 +96,9 @@ test_with_coverage <- function() {
 
   # Generate interactive report
   cli::cli_text()
-  cli::cli_alert_info("Running {.code covr::report()} to generate HTML report ...")
+  cli::cli_alert_info(
+    "Running {.code covr::report()} to generate HTML report ..."
+  )
 
   covr::report(coverage)
 

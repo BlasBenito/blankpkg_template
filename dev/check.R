@@ -80,7 +80,9 @@ check <- function() {
   cli::cli_h2("STEP 2: Running R CMD check")
   cli::cli_text("")
 
-  cli::cli_alert_info("Running {.code devtools::check(args = c('--no-tests', '--no-examples'))} ...")
+  cli::cli_alert_info(
+    "Running {.code devtools::check(args = c('--no-tests', '--no-examples'))} ..."
+  )
   cli::cli_text("")
 
   result <- devtools::check(

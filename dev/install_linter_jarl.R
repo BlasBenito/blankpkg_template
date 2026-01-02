@@ -46,7 +46,6 @@
 #' # Then run the displayed command in your terminal
 #' }
 install_linter_jarl <- function() {
-
   # TODO: Future enhancement (Option 2 - Automated installation)
   # ============================================================
   # Consider adding automated installation using system() calls:
@@ -74,7 +73,9 @@ install_linter_jarl <- function() {
 
   cli::cli_alert_warning("IMPORTANT: Jarl is NOT an R package!")
   cli::cli_text("It's a standalone command-line tool written in Rust.")
-  cli::cli_text("It will be installed as a system command, not in your R library.")
+  cli::cli_text(
+    "It will be installed as a system command, not in your R library."
+  )
   cli::cli_text("")
 
   # Detect OS
@@ -95,9 +96,13 @@ install_linter_jarl <- function() {
     ))
     cli::cli_text("")
 
-    cli::cli_text("Run this command in your {.strong terminal} (not R console):")
+    cli::cli_text(
+      "Run this command in your {.strong terminal} (not R console):"
+    )
     cli::cli_text("")
-    cli::cli_code("curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh")
+    cli::cli_code(
+      "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh"
+    )
     cli::cli_text("")
 
     cli::cli_h3("After installation")
@@ -107,7 +112,6 @@ install_linter_jarl <- function() {
     cli::cli_text("NOTE: You may need to restart your terminal or run:")
     cli::cli_code("source ~/.bashrc    # or ~/.zshrc, depending on your shell")
     cli::cli_text("")
-
   } else if (os == "Windows") {
     cli::cli_h2("Windows Installation")
     cli::cli_text("")
@@ -122,7 +126,9 @@ install_linter_jarl <- function() {
 
     cli::cli_text("Run this command in {.strong PowerShell}:")
     cli::cli_text("")
-    cli::cli_code("irm https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.ps1 | iex")
+    cli::cli_code(
+      "irm https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.ps1 | iex"
+    )
     cli::cli_text("")
 
     cli::cli_h3("After installation")
@@ -131,7 +137,6 @@ install_linter_jarl <- function() {
     cli::cli_text("")
     cli::cli_text("NOTE: You may need to restart PowerShell.")
     cli::cli_text("")
-
   } else {
     cli::cli_alert_danger("Unsupported OS detected")
     cli::cli_text("Please install manually using Cargo (see below).")
@@ -144,7 +149,9 @@ install_linter_jarl <- function() {
 
   cli::cli_text("If you have the Rust toolchain installed:")
   cli::cli_text("")
-  cli::cli_code("cargo install --git https://github.com/etiennebacher/jarl jarl --profile=release")
+  cli::cli_code(
+    "cargo install --git https://github.com/etiennebacher/jarl jarl --profile=release"
+  )
   cli::cli_text("")
   cli::cli_text("To install Rust first, visit: {.url https://rustup.rs/}")
   cli::cli_text("")
@@ -222,7 +229,9 @@ install_linter_jarl <- function() {
 
   cli::cli_rule()
   cli::cli_text("")
-  cli::cli_alert_info("To install jarl, copy the command above and run it in your terminal")
+  cli::cli_alert_info(
+    "To install jarl, copy the command above and run it in your terminal"
+  )
   cli::cli_text("")
 
   invisible(TRUE)

@@ -120,13 +120,17 @@ pkgdown_customize_site <- function() {
   cli::cli_text("Minimal but complete configuration:")
   cli::cli_text()
   cli::cli_code(paste0(
-    "url: https://yourusername.github.io/", pkg_name, "/\n",
+    "url: https://yourusername.github.io/",
+    pkg_name,
+    "/\n",
     "template:\n",
     "  bootstrap: 5\n",
     "  bootswatch: cosmo  # Theme: cosmo, flatly, cerulean, journal, etc.\n",
     "\n",
     "home:\n",
-    "  title: ", pkg_name, " - Your Package Title\n",
+    "  title: ",
+    pkg_name,
+    " - Your Package Title\n",
     "  description: A brief description of your package"
   ))
   cli::cli_text()
@@ -203,7 +207,9 @@ pkgdown_customize_site <- function() {
     "          href: articles/index.html\n",
     "    github:\n",
     "      icon: fab fa-github fa-lg\n",
-    "      href: https://github.com/yourusername/", pkg_name, "\n",
+    "      href: https://github.com/yourusername/",
+    pkg_name,
+    "\n",
     "      aria-label: GitHub"
   ))
   cli::cli_text()
@@ -256,16 +262,22 @@ pkgdown_customize_site <- function() {
   cli::cli_text()
   cli::cli_code(paste0(
     "home:\n",
-    "  title: ", pkg_name, " - Fast Data Processing\n",
+    "  title: ",
+    pkg_name,
+    " - Fast Data Processing\n",
     "  description: |\n",
     "    A comprehensive package for data processing with\n",
     "    performance and ease of use in mind.\n",
     "  \n",
     "  links:\n",
     "    - text: Browse source code\n",
-    "      href: https://github.com/yourusername/", pkg_name, "\n",
+    "      href: https://github.com/yourusername/",
+    pkg_name,
+    "\n",
     "    - text: Report a bug\n",
-    "      href: https://github.com/yourusername/", pkg_name, "/issues\n",
+    "      href: https://github.com/yourusername/",
+    pkg_name,
+    "/issues\n",
     "  \n",
     "  sidebar:\n",
     "    structure: [links, license, community, citation, authors, dev]"
@@ -297,7 +309,9 @@ pkgdown_customize_site <- function() {
   cli::cli_text()
   cli::cli_code(paste0(
     "# Package website URL\n",
-    "url: https://yourusername.github.io/", pkg_name, "/\n\n",
+    "url: https://yourusername.github.io/",
+    pkg_name,
+    "/\n\n",
     "# Template configuration\n",
     "template:\n",
     "  bootstrap: 5\n",
@@ -315,7 +329,9 @@ pkgdown_customize_site <- function() {
     "      card: summary\n\n",
     "# Home page\n",
     "home:\n",
-    "  title: ", pkg_name, " - Your Package Subtitle\n",
+    "  title: ",
+    pkg_name,
+    " - Your Package Subtitle\n",
     "  description: |\n",
     "    A comprehensive description of what your package does.\n",
     "    Use multiple lines for better readability.\n\n",
@@ -327,7 +343,9 @@ pkgdown_customize_site <- function() {
     "  components:\n",
     "    github:\n",
     "      icon: fab fa-github fa-lg\n",
-    "      href: https://github.com/yourusername/", pkg_name, "\n\n",
+    "      href: https://github.com/yourusername/",
+    pkg_name,
+    "\n\n",
     "# Function reference\n",
     "reference:\n",
     "  - title: Main Functions\n",

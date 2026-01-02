@@ -133,7 +133,9 @@ create_example_data <- function() {
     j = j
   )
 
-  cli::cli_alert_success("Data frame created: {nrow(dummy_df)} rows x {ncol(dummy_df)} columns")
+  cli::cli_alert_success(
+    "Data frame created: {nrow(dummy_df)} rows x {ncol(dummy_df)} columns"
+  )
   cli::cli_text()
 
   cli::cli_h3("STEP 3: Save to package")

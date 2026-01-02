@@ -50,7 +50,6 @@
 #' check_full()
 #' }
 check_full <- function() {
-
   # Check prerequisites
   if (!requireNamespace("devtools", quietly = TRUE)) {
     utils::install.packages('devtools')
@@ -74,7 +73,9 @@ check_full <- function() {
   devtools::document()
   cli::cli_text("")
 
-  cli::cli_alert_info("Running {.code devtools::document()} (2nd pass for NAMESPACE) ...")
+  cli::cli_alert_info(
+    "Running {.code devtools::document()} (2nd pass for NAMESPACE) ..."
+  )
   devtools::document()
   cli::cli_text("")
 
@@ -89,7 +90,7 @@ check_full <- function() {
   cli::cli_text("")
 
   result <- devtools::check(
-    document = FALSE  # Already documented above
+    document = FALSE # Already documented above
   )
 
   # Print summary
