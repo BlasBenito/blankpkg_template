@@ -55,6 +55,14 @@
 # Helps users customize the template; not needed in installed package
 ^FIRST-TIME-CHECKLIST\.md$
 
+# Comprehensive tutorial - complete guide merging multiple documentation sources
+# Development guide not needed in installed package
+^TUTORIAL\.md$
+
+# Project TODO list - development task tracking
+# Not needed in installed package
+^TODO\.md$
+
 
 # ==============================================================================
 # DOCUMENTATION SOURCE AND CONFIGURATION
