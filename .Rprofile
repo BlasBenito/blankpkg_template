@@ -96,6 +96,40 @@ if (interactive()) {
     suppressMessages(library(devtools))
   }
 
+  # --------------------------------------------------------------------------
+  # Load development functions
+  # --------------------------------------------------------------------------
+
+  # Source all dev/ functions to make them available in the global environment
+  if (dir.exists("dev")) {
+    # Get all .R files in dev/ folder
+    dev_files <- list.files("dev", pattern = "\\.R$", full.names = TRUE)
+
+    # Exclude certain files that shouldn't be sourced
+    exclude_patterns <- c(
+      "pre_commit_hook",           # Git hook, not an R file
+      "setup_new_package\\.R"      # Reference documentation only
+    )
+
+    # Filter out excluded files
+    for (pattern in exclude_patterns) {
+      dev_files <- dev_files[!grepl(pattern, dev_files)]
+    }
+
+    # Source each file silently
+    for (file in dev_files) {
+      tryCatch(
+        {
+          source(file, local = FALSE)  # Load into global environment
+        },
+        error = function(e) {
+          # Silently skip files that can't be sourced
+          # (some template files may have placeholder code)
+        }
+      )
+    }
+  }
+
   # Set options for package development
   options(
     # Use browser for help
@@ -144,7 +178,15 @@ if (interactive()) {
   cat("  devtools::check()     - Run R CMD check\n")
   cat("  devtools::document()  - Update documentation\n")
   cat("\n")
-  cat("Development scripts available in dev/ folder.\n")
-  cat("See dev/README.md for complete guide.\n")
+  cat("Development functions loaded and ready to use:\n")
+  cat("  dev_check_quick()          - Quick check (most used)\n")
+  cat("  dev_check_complete()       - Full CRAN check\n")
+  cat("  test_run()                 - Run tests\n")
+  cat("  build_readme()             - Render README\n")
+  cat("  build_website()            - Build pkgdown site\n")
+  cat("  release_01_prepare()       - Start CRAN release\n")
+  cat("\n")
+  cat("Type any function name + TAB to see autocomplete options.\n")
+  cat("See dev/README.md for complete guide to all 30 functions.\n")
   cat("\n")
 }
