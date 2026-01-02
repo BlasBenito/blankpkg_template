@@ -95,6 +95,10 @@
 # Installation instructions and badges aren't relevant for installed package
 ^README\.md$
 
+# Other documents
+^CRAN_CHECKLIST\.md$
+^TUTORIAL\.md$
+
 
 # ==============================================================================
 # CODE STYLE AND FORMATTING

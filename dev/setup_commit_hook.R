@@ -117,7 +117,9 @@ setup_commit_hook <- function(lint = TRUE, format = TRUE, testthat = TRUE) {
   if (!dir.exists(".git")) {
     cli::cli_alert_danger("Not a git repository!")
     cli::cli_text()
-    cli::cli_text("This function must be run from the root of a git repository.")
+    cli::cli_text(
+      "This function must be run from the root of a git repository."
+    )
     cli::cli_text("Initialize git first: {.code git init}")
     cli::cli_rule()
     cli::cli_abort("Cannot install pre-commit hook outside git repository")
@@ -131,9 +133,18 @@ setup_commit_hook <- function(lint = TRUE, format = TRUE, testthat = TRUE) {
   cli::cli_text()
   cli::cli_text("Optional components:")
   cli::cli_ul(c(
-    paste0("Jarl linting: ", if (lint) "{.strong enabled}" else "{.emph disabled}"),
-    paste0("Air formatting: ", if (format) "{.strong enabled}" else "{.emph disabled}"),
-    paste0("Testthat tests: ", if (testthat) "{.strong enabled}" else "{.emph disabled}")
+    paste0(
+      "Jarl linting: ",
+      if (lint) "{.strong enabled}" else "{.emph disabled}"
+    ),
+    paste0(
+      "Air formatting: ",
+      if (format) "{.strong enabled}" else "{.emph disabled}"
+    ),
+    paste0(
+      "Testthat tests: ",
+      if (testthat) "{.strong enabled}" else "{.emph disabled}"
+    )
   ))
   cli::cli_text()
   cli::cli_text("Required components (always enabled):")
@@ -157,10 +168,26 @@ setup_commit_hook <- function(lint = TRUE, format = TRUE, testthat = TRUE) {
     "#",
     "# WHAT IT DOES:",
     if (lint) "#   1. Runs jarl linter with auto-fix (if jarl is installed)",
-    if (format) paste0("#   ", if (lint) "2" else "1", ". Runs air formatter on all R files (if air is installed)"),
-    if (testthat) paste0("#   ", sum(c(lint, format)) + 1, ". Runs testthat tests"),
-    paste0("#   ", sum(c(lint, format, testthat)) + 1, ". Updates package documentation (devtools::document())"),
-    paste0("#   ", sum(c(lint, format, testthat)) + 2, ". Runs R CMD check with CRAN standards"),
+    if (format) {
+      paste0(
+        "#   ",
+        if (lint) "2" else "1",
+        ". Runs air formatter on all R files (if air is installed)"
+      )
+    },
+    if (testthat) {
+      paste0("#   ", sum(c(lint, format)) + 1, ". Runs testthat tests")
+    },
+    paste0(
+      "#   ",
+      sum(c(lint, format, testthat)) + 1,
+      ". Updates package documentation (devtools::document())"
+    ),
+    paste0(
+      "#   ",
+      sum(c(lint, format, testthat)) + 2,
+      ". Runs R CMD check with CRAN standards"
+    ),
     "#",
     "# TO SKIP THIS HOOK FOR A SINGLE COMMIT:",
     "#   git commit --no-verify -m \"your message\"",
