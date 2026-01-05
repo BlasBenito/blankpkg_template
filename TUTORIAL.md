@@ -34,7 +34,7 @@ It's a complete R package template that gives you a comprehensive development in
 
 ### What You Get
 
-- **30 development scripts** organized by workflow category (setup, testing, checking, release)
+- **30 development functions** organized by workflow category (setup, testing, checking, release)
 - **Automatic pre-commit hooks** that catch issues before they reach your repo
 - **4-step CRAN release workflow** (entirely optional—works perfectly for GitHub-only packages)
 - **pkgdown website configuration** with example article and Bootstrap 5 theme

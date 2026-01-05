@@ -26,5 +26,5 @@ Language: en-US
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: TRUE
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1.0)
 LazyData: true
