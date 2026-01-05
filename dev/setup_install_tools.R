@@ -99,6 +99,8 @@ setup_install_tools <- function() {
     Ncpus = ncores
   )
 
+  devtools::install_github("csgillespie/roxygen2Comment")
+
   cli::cli_text("")
   cli::cli_alert_success("All development dependencies installed successfully")
 
@@ -132,13 +134,13 @@ setup_install_tools <- function() {
     "todor: {.url https://cran.r-project.org/web/packages/todor/}",
     "Rcpp: {.url https://www.rcpp.org/}",
     "pkgbuild: {.url https://cran.r-project.org/web/packages/pkgbuild/readme/README.html}",
-    "cli: {.url https://cli.r-lib.org/}"
+    "cli: {.url https://cli.r-lib.org/}",
+    "roxygen2Comment: {.url https://github.com/csgillespie/roxygen2Comment}"
   ))
   cli::cli_text("")
 
   cli::cli_h3("Start Developing")
   cli::cli_text("You're ready to start R package development!")
-  cli::cli_text("See {.file dev/README.md} for available development scripts.")
   cli::cli_text("")
 
   cli::cli_rule()
