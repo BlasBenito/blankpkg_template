@@ -53,14 +53,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Run best practices analysis
-#' check_best_practices()
-#'
-#' # Review recommendations and implement critical ones
-#' # Rerun to verify improvements
-#' check_best_practices()
+#' dev_best_practices()
 #' }
-check_best_practices <- function() {
+dev_best_practices <- function() {
   # Check and install dependencies
   if (!requireNamespace("goodpractice", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg goodpractice}")
@@ -78,23 +73,11 @@ check_best_practices <- function() {
   cli::cli_alert_info("This may take 1-3 minutes")
   cli::cli_text()
 
-  start_time <- Sys.time()
-
   gp_result <- goodpractice::gp()
 
   # Print results
   print(gp_result)
 
-  # Calculate timing
-  check_time <- difftime(Sys.time(), start_time, units = "secs")
-
-  cli::cli_text()
-  cli::cli_rule("ANALYSIS COMPLETE")
-  cli::cli_alert_success(
-    "Analysis time: {round(check_time, 1)} seconds"
-  )
-  cli::cli_text()
-  cli::cli_alert_info("Review recommendations above")
   cli::cli_alert_info(
     "Not all suggestions are mandatory, but consider each one"
   )

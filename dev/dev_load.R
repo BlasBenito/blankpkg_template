@@ -75,18 +75,11 @@ dev_load <- function() {
   cli::cli_alert_info("Running {.code devtools::load_all()} ...")
   cli::cli_text()
 
-  start_time <- Sys.time()
-
   devtools::load_all()
-
-  load_time <- difftime(Sys.time(), start_time, units = "secs")
 
   # Print summary
   cli::cli_text()
   cli::cli_rule("PACKAGE LOADED")
-  cli::cli_alert_success(
-    "Load time: {round(load_time, 2)} seconds"
-  )
   cli::cli_text()
   cli::cli_alert_info(
     "Package functions are now available for interactive use"

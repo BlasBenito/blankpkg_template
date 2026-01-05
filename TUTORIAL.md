@@ -26,42 +26,19 @@
 
 ## Introduction
 
-### What is blankpkg_template?
+### What is `blankpkg_template`?
 
-It's a complete R package template that gives you a comprehensive development infrastructure out of the box. No more setting up testing frameworks, configuring pre-commit hooks, or figuring out CRAN submission workflows—it's all here, ready to go.
+It's a complete R package template that gives you a comprehensive development infrastructure out of the box.
 
-**Design Philosophy:** This template prioritizes **simplicity and speed** in R package creation. Functions are streamlined with minimal or no arguments, using sensible defaults. The goal? Make package development as fast and friction-free as possible.
-
-### What You Get
-
-- **30 development functions** organized by workflow category (setup, testing, checking, release)
-- **Automatic pre-commit hooks** that catch issues before they reach your repo
-- **4-step CRAN release workflow** (entirely optional—works perfectly for GitHub-only packages)
-- **pkgdown website configuration** with example article and Bootstrap 5 theme
-- **Rcpp/C++ integration support** for performance-critical code
-- **Claude Code AI agents** for documentation review and CRAN submission assistance
-- **Comprehensive testing tools** with coverage analysis and spell checking
-- **Multi-platform checking** via R-Hub, Windows builder, and macOS builder
-
-### Who Should Use This Template?
-
-You should use this template if you:
-
-- Want to create an R package without spending hours on infrastructure setup
-- Need a proven workflow that follows modern R package development best practices
-- Plan to submit to CRAN (or just want the *option* to do so later)
-- Prefer convention over configuration—sensible defaults with room to customize
-- Like autocomplete-driven workflows (type `daily_` + TAB to discover all daily scripts)
+**Design Philosophy:** Make package development as fast and friction-free as possible.
 
 ### Key Features at a Glance
 
-**Automatic Package Detection**: Every script figures out your package name automatically. No hardcoded values anywhere. Rename your package? Fork the template? It just works.
+**Prefix-Based Organization**: Development functions are named with prefixes (`setup_*`, `daily_*`, `test_*`, `check_*`, `release_*`) so you discover functionality through autocomplete.
 
-**Prefix-Based Organization**: Scripts are named with prefixes (`setup_*`, `daily_*`, `test_*`, `check_*`, `release_*`) so you discover functionality through autocomplete.
+**Pre-Commit Quality Gates**: The function `setup_commit_hook()` installs a pre-commit hook that lints, formats, updates docs, and runs R CMD check.
 
-**Pre-Commit Quality Gates**: The template auto-installs a pre-commit hook when you start R. Before each commit, it lints, formats, updates docs, and runs R CMD check. No broken code reaches your repo.
-
-**Optional CRAN Workflow**: CRAN submission is entirely optional. The template works perfectly for GitHub-only packages. Use the `release_*` scripts only if and when you're ready to submit.
+**Optional CRAN Workflow**: CRAN submission is entirely optional. The template works perfectly for GitHub-only packages. Use the `release_*` functions and CRAN_CHECKLIST.md only if and when you're ready to submit.
 
 ---
 
@@ -72,8 +49,8 @@ Let's get you up and running. This takes about 10-15 minutes on first run.
 ### Step 1: Fork and Clone
 
 **On GitHub:**
-1. Navigate to the blankpkg_template repository
-2. Click **"Use this template"** (green button) to create a new repository
+1. Navigate to the [`blankpkg_template` repository](https://github.com/BlasBenito/blankpkg_template)
+2. Click **"Use this template"** (green button in the upper right corner) to create a new repository
 3. Name your repository (use your package name: lowercase, no spaces)
 4. Clone to your local machine:
    ```bash
@@ -83,50 +60,35 @@ Let's get you up and running. This takes about 10-15 minutes on first run.
 
 **Open in RStudio or your preferred R IDE.**
 
-### Step 2: Auto-Installation of Pre-Commit Hook
+### Step 2: Understanding Auto-Loaded Development Functions
 
-When you start an R session in the package directory, the `.Rprofile` automatically installs the pre-commit hook.
-
-1. Start R in the package directory
-2. You should see: `"Pre-commit hook installed successfully"`
-3. Verify: Check that `.git/hooks/pre-commit` exists
-
-**What the hook does:**
-- Runs `jarl lint --fix R/` (if jarl installed)
-- Runs `air format .` (if air installed)
-- Runs `devtools::document()` (required—updates documentation)
-- Runs `devtools::check(cran = TRUE)` (required—catches issues before commit)
-
-**Skip the hook temporarily:**
-```bash
-git commit --no-verify -m "your message"
-```
+**IMPORTANT:** When you start R in the package directory, the `.Rprofile` automatically **loads all development functions** from `dev/` into your environment
 
 ### Step 3: Install Development Dependencies
 
-Run this from the package root directory:
+Start R in the package directory, then run:
 
 ```r
-source("dev/setup_install_tools.R")
+setup_install_tools()
 ```
 
 **What it installs:**
-- devtools, roxygen2, usethis, testthat (core development)
-- roxyglobals (automatic global variable detection)
-- covr, spelling (test coverage and spell checking)
-- pkgdown, pkgnet (documentation website and dependency visualization)
-- goodpractice, rcmdcheck, codetools (quality analysis)
-- rhub (multi-platform CRAN checks)
-- microbenchmark, profvis (performance analysis)
+- `devtools`, `roxygen2`, `usethis`, `testthat` (core development)
+- `roxyglobals` (automatic global variable detection)
+- `covr`, `spelling` (test coverage and spell checking)
+- `pkgdown`, `pkgnet` (documentation website and dependency visualization)
+- `goodpractice`, `rcmdcheck`, `codetools` (quality analysis)
+- `rhub` (multi-platform CRAN checks)
+- `microbenchmark`, `profvis` (performance analysis)
 
 **Time:** 5-10 minutes on first run (installs in parallel for speed)
 
 ### Step 4: Optional - Install Code Quality Tools
 
-**Install jarl linter (Rust-based, 140x faster than lintr):**
+**Install [jarl linter](https://jarl.etiennebacher.com/) (Rust-based, 140x faster than `lintr`):**
 
 ```r
-source("dev/help_install_jarl.R")
+help_install_jarl()
 ```
 
 This displays installation instructions. **Important:** jarl is a CLI tool, not an R package. Install in your terminal (not R console):
@@ -141,17 +103,17 @@ curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/rele
 irm https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.ps1 | iex
 ```
 
-**Install air formatter (wraps usethis::use_air()):**
+**Install [air formatter](https://posit-dev.github.io/air/) (wraps usethis::use_air()):**
 
 ```r
-source("dev/help_install_air.R")
+help_install_air()
 ```
 
 This runs `usethis::use_air()` which sets up the air code formatter.
 
 **Note:** Both tools are optional but recommended. The pre-commit hook will use them if installed, skip them if not.
 
-### Step 5: Configure Your Environment (One-Time Setup)
+### Step 5: Configure Your Multiplatform Check Environment (One-Time Setup)
 
 **For R-Hub checks (multi-platform testing):**
 
@@ -169,6 +131,7 @@ usethis::edit_r_environ()
 ```
 
 Add this line (get your token from GitHub settings):
+
 ```
 GITHUB_PAT=your_token_here
 ```
@@ -189,7 +152,7 @@ Open `DESCRIPTION` and replace **ALL** placeholder text:
 
 **Package name:**
 ```
-Package: blankpkg  →  Package: yourpackage
+Package: pkgname  →  Package: yourpackage
 ```
 Use lowercase, no spaces. This is how users will call `library(yourpackage)`.
 
@@ -293,7 +256,7 @@ library(yourpackage)
 
 **Render README.md:**
 ```r
-source("dev/build_readme.R")
+build_readme()
 ```
 
 This executes code chunks and creates `README.md` from `README.Rmd`.
@@ -332,7 +295,7 @@ file.remove("R/data.R")
 
 **If you DO need example data,** use the template:
 ```r
-source("dev/template_create_dataset.R")
+template_create_dataset()
 ```
 
 Modify the data generation code, then document it in `R/data.R` following the example pattern.
@@ -366,7 +329,7 @@ your_function <- function(x, y) {
 
 **After adding functions, run:**
 ```r
-source("dev/dev_check_quick.R")
+dev_check_quick()
 ```
 
 This updates documentation and runs R CMD check to verify everything works.
@@ -401,12 +364,85 @@ test_that("your_function handles errors", {
 
 **Run tests:**
 ```r
-source("dev/test_run.R")
+test_run()
 ```
 
 All tests should pass before you commit.
 
-**Congratulations!** You've customized the template. Now let's talk about daily development workflows.
+**Congratulations!** You've customized the template. Before diving into daily workflows, let's set up continuous integration.
+
+---
+
+## Setup GitHub Actions (Continuous Integration)
+
+Now that you've customized your package, set up GitHub Actions for automatic testing and documentation deployment.
+
+### What GitHub Actions Does
+
+**R-CMD-check workflow (already included):**
+- ✅ Runs R CMD check automatically on every push
+- ✅ Tests on multiple platforms: macOS, Windows, Ubuntu
+- ✅ Tests with multiple R versions: devel, release, oldrel-1
+- ✅ Creates a badge for your README showing build status
+
+**pkgdown workflow (optional but recommended):**
+- 🌐 Builds your package website automatically
+- 🚀 Deploys to GitHub Pages on every push to main branch
+- ⚡ No need to manually run `build_website()` and commit docs/
+- 🎯 Your website automatically stays up-to-date
+
+### Setup Command
+
+After you've pushed your package to GitHub, run:
+
+```r
+# Setup both R-CMD-check and pkgdown (recommended)
+setup_github_actions()
+
+# Only verify/update R-CMD-check
+setup_github_actions(pkgdown = FALSE)
+
+# Only setup pkgdown deployment
+setup_github_actions(rcmdcheck = FALSE, pkgdown = TRUE)
+```
+
+### Post-Setup Steps
+
+1. **Commit the workflow files:**
+   ```bash
+   git add .github/workflows/
+   git commit -m "Add GitHub Actions workflows"
+   git push
+   ```
+
+2. **For pkgdown: Enable GitHub Pages**
+   - Navigate to: Repository → Settings → Pages
+   - Under "Source", select: **"GitHub Actions"**
+   - Save
+   - Your website will deploy to: `https://YOUR-USERNAME.github.io/YOUR-PACKAGE/`
+
+3. **View workflow status:**
+   - Go to: Repository → Actions tab
+   - Workflows run automatically on each push
+   - First run may take 3-5 minutes
+
+### Monitoring Workflows
+
+**Every push to GitHub automatically:**
+- Runs R CMD check on 5 different platform/R version combinations
+- Builds and deploys your pkgdown website (if enabled)
+- Shows results with ✓ or ✗ in the Actions tab
+
+**If a workflow fails:**
+1. Click on the failed workflow in Actions tab
+2. Expand the failed step to read error logs
+3. Fix the issue locally with `dev_check_complete()`
+4. Commit and push again - workflow reruns automatically
+
+**Pro tip:** Add the R-CMD-check badge to your README to show build status:
+```markdown
+[![R-CMD-check](https://github.com/YOUR-USERNAME/YOUR-PACKAGE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YOUR-USERNAME/YOUR-PACKAGE/actions/workflows/R-CMD-check.yaml)
+```
 
 ---
 
@@ -414,27 +450,29 @@ All tests should pass before you commit.
 
 Here's how you'll actually work with the template day-to-day. These are the scripts you'll use most frequently.
 
-### Understanding Script Organization
+### Understanding Function Organization
 
-Scripts are organized with **prefix-based naming** for autocomplete discovery:
+Development functions are organized with **prefix-based naming** for autocomplete discovery:
 
 - `setup_*` - Initial package setup, Rcpp configuration
-- `daily_*` - Common daily workflows (most used)
+- `daily_*` / `dev_*` - Common daily workflows (most used)
 - `test_*` - Testing workflows
 - `check_*` - Package validation and checking
 - `build_*` - Building documentation (README, vignettes)
-- `pkgdown_*` - Package website
+- `help_*` - Interactive guides and installation help
 - `release_*` - CRAN submission (4-step process)
-- `analyze_*` - Code analysis and reporting
+- `report_*` / `template_*` - Code analysis and templates
 
-**Tip:** Type the prefix (e.g., `daily_`) and hit TAB to see all scripts in that category. It's autocomplete for your workflow!
+**Tip:** Type the prefix (e.g., `dev_` or `test_`) and hit TAB to see all functions in that category. It's autocomplete for your workflow!
+
+**Remember:** Functions are **auto-loaded** when you start R—no need to `source()` anything!
 
 ### Typical Development Session
 
 **1. Start your session (load package for interactive testing):**
 
 ```r
-source("dev/dev_load.R")
+dev_load()
 ```
 
 This runs `devtools::load_all()`, making your package functions available in the current R session. Rerun after making code changes.
@@ -444,10 +482,10 @@ This runs `devtools::load_all()`, making your package functions available in the
 **2. After making changes (quick iteration):**
 
 ```r
-source("dev/dev_check_quick.R")
+dev_check_quick()
 ```
 
-This is the **most frequently used script** during development. It:
+This is the **most frequently used function** during development. It:
 - Updates documentation with `devtools::document()`
 - Runs R CMD check
 
@@ -458,7 +496,7 @@ Use this constantly during development for quick feedback loops.
 **3. Quick test run:**
 
 ```r
-source("dev/test_run.R")
+test_run()
 ```
 
 Runs your test suite quickly without the overhead of a full R CMD check. Use for rapid iteration when writing tests.
@@ -468,10 +506,10 @@ Runs your test suite quickly without the overhead of a full R CMD check. Use for
 **4. Before committing code:**
 
 ```r
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
-This is the **comprehensive check** that runs `devtools::check(cran = TRUE)`. More thorough than `dev_check_quick.R`—it catches CRAN-specific issues.
+This is the **comprehensive check** that runs `devtools::check(cran = TRUE)`. More thorough than `dev_check_quick()` —it catches CRAN-specific issues.
 
 **Time:** 30-90 seconds
 
@@ -499,30 +537,30 @@ Only skip for work-in-progress commits. Always run a full check before pushing t
 
 **Before committing:**
 ```r
-source("dev/dev_check_complete.R")
-source("dev/test_spelling.R")
+dev_check_complete()
+test_spelling()
 ```
 
 **Before pushing to remote:**
 ```r
-source("dev/dev_check_complete.R")
-source("dev/test_run.R")
+dev_check_complete()
+test_run()
 ```
 
 **After documentation changes:**
 ```r
-source("dev/build_website.R")
-source("dev/build_readme.R")  # if README.Rmd exists
+build_website()
+build_readme()  # if README.Rmd exists
 ```
 
 **Periodic quality checks (weekly or monthly):**
 ```r
-source("dev/check_best_practices.R")
-source("dev/report_code_quality.R")
-source("dev/test_coverage_report.R")
+check_best_practices()
+report_code_quality()
+test_coverage_report()
 ```
 
-**You now have a rhythm.** Code → `dev_check_quick.R` → Test → `dev_check_complete.R` → Commit. Repeat.
+**You now have a rhythm.** Code → `dev_check_quick()` → Test → `dev_check_complete()` → Commit. Repeat.
 
 ---
 
@@ -530,7 +568,7 @@ source("dev/test_coverage_report.R")
 
 Complete guide to all 30 development scripts. Each entry includes when to use it, what it does, how long it takes, and important notes.
 
-### Setup & Installation (4 scripts)
+### Setup & Installation (5 functions)
 
 #### `setup_new_package.R`
 **When to use:** Never (reference only)
@@ -539,7 +577,7 @@ Complete guide to all 30 development scripts. Each entry includes when to use it
 
 ---
 
-#### `setup_cpp_support.R`
+#### `setup_cpp_support()`
 **When to use:** Adding C++ code to your package via Rcpp
 **What it does:**
 - Checks for C++ compiler (saves you from cryptic errors later)
@@ -565,7 +603,7 @@ devtools::load_all()  # Load package with compiled code
 
 ---
 
-#### `setup_install_tools.R`
+#### `setup_install_tools()`
 **When to use:** First-time setup, or to update dev packages
 **What it does:** Installs all required development packages in parallel
 **Time:** 5-10 minutes first run
@@ -581,7 +619,7 @@ devtools::load_all()  # Load package with compiled code
 
 ---
 
-#### `help_install_jarl.R`
+#### `help_install_jarl()`
 **When to use:** Setting up fast Rust-based linting
 **What it does:** Provides installation instructions for jarl CLI linter
 **Time:** Few seconds (displays instructions only)
@@ -614,31 +652,70 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Daily Development (4 scripts)
+#### `setup_github_actions()`
+**When to use:** After pushing your repository to GitHub
+**What it does:**
+- Verifies/updates R-CMD-check workflow (multi-platform testing)
+- Optionally sets up pkgdown deployment workflow (automatic website)
+- Provides post-setup instructions and next steps
 
-#### `dev_check_quick.R`
+**Time:** Few seconds
+**Prerequisites:** Repository must be on GitHub
+
+**Parameters:**
+- `pkgdown = TRUE` - Add automatic pkgdown deployment to GitHub Pages
+- `rcmdcheck = TRUE` - Verify/update R-CMD-check workflow
+
+**What it creates:**
+- `.github/workflows/R-CMD-check.yaml` - Multi-platform CI testing
+- `.github/workflows/pkgdown.yaml` - Automatic website deployment (if `pkgdown = TRUE`)
+
+**After running:**
+```bash
+git add .github/workflows/
+git commit -m "Add GitHub Actions workflows"
+git push
+```
+
+**For pkgdown deployment:**
+- Enable GitHub Pages in repository settings
+- Settings → Pages → Source: "GitHub Actions"
+- Website deploys to: `https://USERNAME.github.io/PACKAGE/`
+
+**Notes:**
+- Workflows run automatically on every push to main branch
+- R-CMD-check tests on: macOS, Windows, Ubuntu (R-devel, release, oldrel-1)
+- pkgdown builds and deploys your package website automatically
+- View workflow status at: Repository → Actions tab
+- First run may take 3-5 minutes
+
+---
+
+### Daily Development (4 functions)
+
+#### `dev_check_quick()`
 **When to use:** After making code changes (quick iteration workflow)
 **What it does:**
 - Updates documentation with `devtools::document()`
 - Runs R CMD check
 
 **Time:** 30-60 seconds
-**Notes:** **Most frequently used script** during development. Run this constantly for quick feedback loops.
+**Notes:** **Most frequently used function** during development. Run this constantly for quick feedback loops.
 
 ---
 
-#### `dev_check_complete.R`
+#### `dev_check_complete()`
 **When to use:** Before committing or releasing code
 **What it does:**
 - Updates documentation with `devtools::document()`
 - Runs R CMD check with `cran = TRUE`
 
 **Time:** 30-90 seconds
-**Notes:** More comprehensive than `dev_check_quick.R`. Catches CRAN-specific issues. Must pass with 0/0/0 before commits.
+**Notes:** More comprehensive than `dev_check_quick()`. Catches CRAN-specific issues. Must pass with 0/0/0 before commits.
 
 ---
 
-#### `test_run.R`
+#### `test_run()`
 **When to use:** Quick test execution during development
 **What it does:** Loads package and runs all tests
 **Time:** 5-15 seconds
@@ -646,7 +723,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `dev_load.R`
+#### `dev_load()`
 **When to use:** Interactive development and testing
 **What it does:** Loads package functions into current R session with `devtools::load_all()`
 **Time:** < 1 second
@@ -654,9 +731,9 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Testing Suite (3 scripts)
+### Testing Suite (3 functions)
 
-#### `test_run.R`
+#### `test_run()`
 **When to use:** Before committing code
 **What it does:** Runs complete test suite with detailed output
 **Time:** Varies by test complexity
@@ -664,7 +741,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `test_coverage_report.R`
+#### `test_coverage_report()`
 **When to use:** Checking test coverage
 **What it does:**
 - Runs tests with `covr::package_coverage()`
@@ -677,7 +754,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `test_spelling.R`
+#### `test_spelling()`
 **When to use:** Before committing, before release
 **What it does:** Spell checks all documentation with `spelling::spell_check_package()`
 **Time:** Few seconds
@@ -691,44 +768,9 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Checking Suite (5 scripts)
+### Build Tools (2 functions)
 
-#### `check_on_windows.R`
-**When to use:** Before CRAN submission (or use release workflow)
-**What it does:** Submits to Windows R-devel builder
-**Time:** 15-60 minutes (remote)
-**Notes:** Results emailed to maintainer. Check spam folder!
-
----
-
-#### `check_on_mac.R`
-**When to use:** Before CRAN submission (or use release workflow)
-**What it does:** Submits to macOS R-release builder
-**Time:** 15-60 minutes (remote)
-**Notes:** Results emailed to maintainer.
-
----
-
-#### `check_on_all_platforms.R`
-**When to use:** Comprehensive cross-platform testing
-**What it does:** Checks on 20+ platforms via R-Hub
-**Time:** 15-60 minutes (remote)
-**Prerequisites:** Run `rhub::rhub_setup()` first (one-time)
-**Notes:** Requires GITHUB_PAT in `.Renviron`.
-
----
-
-#### `check_best_practices.R`
-**When to use:** Before release, periodic quality checks
-**What it does:** Analyzes package for best practices with `goodpractice::gp()`
-**Time:** 1-3 minutes
-**Notes:** Recommendations are suggestions, not all mandatory. Use judgment.
-
----
-
-### Build Tools (2 scripts)
-
-#### `build_readme.R`
+#### `build_readme()`
 **When to use:** After editing README.Rmd
 **What it does:** Renders README.Rmd to README.md with `rmarkdown::render()`
 **Time:** Few seconds
@@ -736,7 +778,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `build_vignettes.R`
+#### `build_vignettes()`
 **When to use:** After editing vignettes
 **What it does:** Builds all vignettes with `devtools::build_vignettes()`
 **Time:** Varies by vignette complexity
@@ -749,9 +791,9 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Pkgdown Website (2 scripts)
+### Pkgdown Website (2 functions)
 
-#### `build_website.R`
+#### `build_website()`
 **When to use:** After documentation updates
 **What it does:** Builds pkgdown website with `pkgdown::build_site()`
 **Time:** 10-30 seconds
@@ -765,7 +807,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `help_customize_website.R`
+#### `help_customize_website()`
 **When to use:** Setting up or customizing package website
 **What it does:** Interactive guide to pkgdown customization
 **Time:** Educational/reference (doesn't modify files)
@@ -787,9 +829,9 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Analysis Tools (5 scripts)
+### Analysis Tools (5 functions)
 
-#### `report_dependencies.R`
+#### `report_dependencies()`
 **When to use:** Understanding package architecture
 **What it does:** Creates visual dependency network with `pkgnet::CreatePackageReport()`
 **Time:** 1-2 minutes
@@ -798,7 +840,7 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `report_package_structure.R`
+#### `report_package_structure()`
 **When to use:** Reviewing package metrics
 **What it does:** Counts functions, files, documentation coverage
 **Time:** Few seconds
@@ -806,15 +848,15 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `template_benchmarking.R`
+#### `template_benchmarking()`
 **When to use:** Benchmarking and profiling
 **What it does:** Provides templates for `microbenchmark` and `profvis`
 **Time:** Depends on benchmarks
-**Notes:** **TEMPLATE SCRIPT**—won't do anything until you customize it for your functions!
+**Notes:** **TEMPLATE FUNCTION**—won't do anything until you customize it for your functions!
 
 ---
 
-#### `report_code_quality.R`
+#### `report_code_quality()`
 **When to use:** Static code analysis
 **What it does:** Checks for coding issues with `codetools::checkUsagePackage()`
 **Time:** Few seconds
@@ -822,15 +864,15 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-### Development Helpers (2 scripts)
+### Development Helpers (2 functions)
 
-#### `template_create_dataset.R`
+#### `template_create_dataset()`
 **When to use:** Creating example datasets for documentation or testing
-**What it does:** Template script for generating and documenting datasets
+**What it does:** Template function for generating and documenting datasets
 **Time:** Few seconds (plus time to create your data)
 
 **How to use:**
-1. Run: `source("dev/template_create_dataset.R")`
+1. Run: `template_create_dataset()`
 2. Modify data generation code for your actual dataset
 3. Document in `R/data.R` with roxygen2 comments
 4. Run `devtools::document()` to generate help file
@@ -847,13 +889,13 @@ jarl lint path/to/file.R  # Lint single file
 
 ---
 
-#### `template_create_function.R`
+#### `template_create_function()`
 **When to use:** Creating new functions with proper documentation structure
-**What it does:** Template script for generating well-documented functions
+**What it does:** Template function for generating well-documented functions
 **Time:** Few seconds
 
 **How to use:**
-1. Run: `source("dev/template_create_function.R")`
+1. Run: `template_create_function()`
 2. Review generated function in `R/lm_model.R`
 3. Modify for your needs
 4. Run `devtools::document()` to generate help files
@@ -872,14 +914,14 @@ Testing is where you build confidence that your package works correctly. Here's 
 
 **Quick test run (during development):**
 ```r
-source("dev/test_run.R")
+test_run()
 ```
 
 This runs your test suite quickly using `devtools::test()`. Use this constantly while writing tests.
 
 **Comprehensive test with coverage:**
 ```r
-source("dev/test_coverage_report.R")
+test_coverage_report()
 ```
 
 This:
@@ -896,9 +938,11 @@ This:
 
 ### Code Quality Checks
 
+### Checking Suite (3 functions)
+
 **Local R CMD check (the big one):**
 ```r
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
 This runs `devtools::check(cran = TRUE)` with CRAN-level standards. **Must pass with 0 errors, 0 warnings, 0 notes** (or acceptable notes like "New submission").
@@ -916,7 +960,7 @@ This runs `devtools::check(cran = TRUE)` with CRAN-level standards. **Must pass 
 
 **Best practices analysis:**
 ```r
-source("dev/check_best_practices.R")
+dev_best_practices()
 ```
 
 This uses `goodpractice::gp()` to analyze your package and provide recommendations:
@@ -931,7 +975,7 @@ This uses `goodpractice::gp()` to analyze your package and provide recommendatio
 
 **Static code analysis:**
 ```r
-source("dev/report_code_quality.R")
+report_code_quality()
 ```
 
 This uses `codetools::checkUsagePackage()` to find:
@@ -944,7 +988,7 @@ This uses `codetools::checkUsagePackage()` to find:
 
 **Package structure analysis:**
 ```r
-source("dev/report_package_structure.R")
+report_package_structure()
 ```
 
 This counts:
@@ -957,25 +1001,9 @@ Use this to identify documentation gaps.
 
 ### Multi-Platform Checking
 
-Before CRAN submission (or for comprehensive testing), check on multiple platforms:
-
-**Windows R-devel:**
-```r
-source("dev/check_on_windows.R")
-```
-
-Results emailed in 15-60 minutes.
-
-**macOS R-release:**
-```r
-source("dev/check_on_mac.R")
-```
-
-Results emailed in 15-60 minutes.
-
 **20+ platforms via R-Hub:**
 ```r
-source("dev/check_on_all_platforms.R")
+dev_check_all_platforms()
 ```
 
 **First time:** Run `rhub::rhub_setup()` and `rhub::rhub_doctor()` before using R-Hub.
@@ -986,7 +1014,7 @@ source("dev/check_on_all_platforms.R")
 
 **Check all documentation for typos:**
 ```r
-source("dev/test_spelling.R")
+test_spelling()
 ```
 
 **Add valid words to `inst/WORDLIST`:**
@@ -1010,7 +1038,7 @@ Great code deserves great documentation. Here's how to build README files, vigne
 
 **Build your website:**
 ```r
-source("dev/build_website.R")
+build_website()
 ```
 
 This runs `pkgdown::build_site()` and creates a complete website in the `docs/` directory.
@@ -1024,7 +1052,7 @@ This runs `pkgdown::build_site()` and creates a complete website in the `docs/` 
 
 **Customize appearance:**
 ```r
-source("dev/help_customize_website.R")
+help_customize_website()
 ```
 
 This interactive guide shows you how to customize `_pkgdown.yml`:
@@ -1054,7 +1082,7 @@ reference:
 
 **Deploy to GitHub Pages:**
 
-1. Build site: `source("dev/build_website.R")`
+1. Build site: `build_website()`
 2. Commit `docs/` directory to git
 3. GitHub repo → Settings → Pages
 4. Source: Deploy from `docs/` folder on main branch
@@ -1078,7 +1106,7 @@ vignettes/articles/article.Rmd
 1. Delete example: `file.remove("vignettes/articles/article.Rmd")`
 2. Create new article: `usethis::use_article("your-topic")`
 3. Edit the created R Markdown file
-4. Build website: `source("dev/build_website.R")`
+4. Build website: `build_website()`
 
 **Add standard vignettes (if needed):**
 
@@ -1089,7 +1117,7 @@ usethis::use_vignette("intro-to-yourpackage")
 This creates `vignettes/intro-to-yourpackage.Rmd`. Edit it, then:
 
 ```r
-source("dev/build_vignettes.R")
+build_vignettes()
 ```
 
 Vignettes install with the package. Keep them concise and focused.
@@ -1100,7 +1128,7 @@ Vignettes install with the package. Keep them concise and focused.
 
 Edit `README.Rmd`, then render to Markdown:
 ```r
-source("dev/build_readme.R")
+build_readme()
 ```
 
 This runs code chunks and creates `README.md`.
@@ -1138,10 +1166,10 @@ Before starting the release workflow, ensure:
 
 **Code quality checks (all must pass):**
 ```r
-source("dev/dev_check_complete.R")       # 0 errors, 0 warnings, 0 notes
-source("dev/check_best_practices.R")  # Review recommendations
-source("dev/test_spelling.R")         # Fix all typos
-source("dev/test_coverage_report.R")   # Check >80% coverage
+dev_check_complete()         # 0 errors, 0 warnings, 0 notes
+check_best_practices()       # Review recommendations
+test_spelling()              # Fix all typos
+test_coverage_report()       # Check >80% coverage
 ```
 
 **Documentation completeness:**
@@ -1165,7 +1193,7 @@ source("dev/test_coverage_report.R")   # Check >80% coverage
 #### Step 1: Prepare
 
 ```r
-source("dev/release_01_prepare.R")
+release_01_prepare()
 ```
 
 **What it does:**
@@ -1209,7 +1237,7 @@ source("dev/release_01_prepare.R")
 #### Step 2: Local Checks
 
 ```r
-source("dev/release_02_local_checks.R")
+release_02_local_checks()
 ```
 
 **What it does:**
@@ -1233,7 +1261,7 @@ source("dev/release_02_local_checks.R")
 #### Step 3: Remote Checks
 
 ```r
-source("dev/release_03_remote_checks.R")
+release_03_remote_checks()
 ```
 
 **What it does:**
@@ -1264,7 +1292,7 @@ source("dev/release_03_remote_checks.R")
 #### Step 4: Submit to CRAN
 
 ```r
-source("dev/release_04_submit_to_cran.R")
+release_04_submit_to_cran()
 ```
 
 **What it does:**
@@ -1406,18 +1434,18 @@ The agents complement but don't replace the development scripts:
 # 1. Write/modify function
 # 2. Ask roxygen-doc-reviewer to check documentation
 # 3. Run quick check
-source("dev/dev_check_quick.R")
+dev_check_quick()
 
 # ... later, preparing for CRAN ...
 
 # 1. Ask cran-submission-expert for pre-check
 # 2. Run release workflow
-source("dev/release_01_prepare.R")
-source("dev/release_02_local_checks.R")
+release_01_prepare()
+release_02_local_checks()
 # 3. Ask cran-submission-expert to interpret results
-source("dev/release_03_remote_checks.R")
+release_03_remote_checks()
 # 4. Ask cran-submission-expert for final verification
-source("dev/release_04_submit_to_cran.R")
+release_04_submit_to_cran()
 ```
 
 **Best practices:**
@@ -1435,7 +1463,7 @@ Need to speed things up? Add C++ code to your package.
 
 **Run the setup:**
 ```r
-source("dev/setup_cpp_support.R")
+setup_cpp_support()
 ```
 
 **What it does:**
@@ -1559,7 +1587,7 @@ your_function(1:5)
 
 **Run detailed check to see full error messages:**
 ```r
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
 **Common issues:**
@@ -1636,7 +1664,7 @@ Delete tests for example code you've removed.
 
 **Run tests to verify:**
 ```r
-source("dev/test_run.R")
+test_run()
 ```
 
 ---
@@ -1674,24 +1702,24 @@ your_function <- function() {
 **After adding `@autoglobal`:**
 ```r
 devtools::document()
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
 ---
 
 ### Performance scripts have errors?
 
-**Symptoms:** `template_benchmarking.R` fails when run
+**Symptoms:** `template_benchmarking()` fails when run
 
-**Cause:** It's a TEMPLATE script—won't work until you customize it
+**Cause:** It's a TEMPLATE function—won't work until you customize it
 
 **Fix:**
-1. Open `dev/template_benchmarking.R`
-2. Uncomment the template code
+1. Run `template_benchmarking()` to see the templates
+2. Copy the relevant template code
 3. Replace example functions with your actual functions
-4. Run the script
+4. Run the customized code
 
-**Template scripts are starting points, not ready-to-run.**
+**Template functions are starting points, not ready-to-run.**
 
 ---
 
@@ -1776,27 +1804,27 @@ Type prefix + TAB to discover scripts:
 
 **Before committing code:**
 ```r
-source("dev/dev_check_complete.R")
-source("dev/test_spelling.R")
+dev_check_complete()
+test_spelling()
 ```
 
 **Before pushing to remote:**
 ```r
-source("dev/dev_check_complete.R")
-source("dev/test_run.R")
+dev_check_complete()
+test_run()
 ```
 
 **After documentation changes:**
 ```r
-source("dev/build_website.R")
-source("dev/build_readme.R")
+build_website()
+build_readme()
 ```
 
 **Periodic quality checks (weekly/monthly):**
 ```r
-source("dev/check_best_practices.R")
-source("dev/report_code_quality.R")
-source("dev/test_coverage_report.R")
+check_best_practices()
+report_code_quality()
+test_coverage_report()
 ```
 
 ---
@@ -1891,7 +1919,7 @@ git commit --no-verify -m "WIP: testing new approach"
 
 **Before pushing to remote, always:**
 ```r
-source("dev/dev_check_complete.R")
+dev_check_complete()
 ```
 
 **Tag releases:**
@@ -1976,7 +2004,7 @@ Quick verification that you've completed key steps:
 
 **Initial Setup:**
 - [ ] Forked/cloned repository
-- [ ] Ran `source("dev/setup_install_tools.R")`
+- [ ] Ran `setup_install_tools()`
 - [ ] Pre-commit hook installed (message appears when starting R)
 - [ ] Optionally installed jarl and air
 
@@ -2002,8 +2030,8 @@ Quick verification that you've completed key steps:
 
 **Quality Assurance:**
 - [ ] Tests written for your functions
-- [ ] `source("dev/dev_check_complete.R")` passes (0/0/0)
-- [ ] `source("dev/test_spelling.R")` passes
+- [ ] `dev_check_complete()` passes (0/0/0)
+- [ ] `test_spelling()` passes
 - [ ] Test coverage reviewed (>80% recommended)
 
 **Git and GitHub:**
@@ -2014,11 +2042,11 @@ Quick verification that you've completed key steps:
 
 **Optional (if building website):**
 - [ ] `_pkgdown.yml` customized for your package
-- [ ] Website built with `source("dev/build_website.R")`
+- [ ] Website built with `build_website()`
 - [ ] GitHub Pages configured to deploy from `docs/` folder
 
 **Optional (if submitting to CRAN):**
-- [ ] Followed 4-step release workflow (release_01 through release_04)
+- [ ] Followed 4-step release workflow (`release_01_prepare()` through `release_04_submit_to_cran()`)
 - [ ] All remote checks passed (Windows, macOS)
 - [ ] Submitted to CRAN via `devtools::release()`
 
@@ -2032,18 +2060,18 @@ After completing this tutorial, establish these development patterns:
 
 1. **Start each session:**
    ```r
-   source("dev/dev_load.R")
+   dev_load()
    ```
 
 2. **After changes:**
    ```r
-   source("dev/dev_check_quick.R")
+   dev_check_quick()
    ```
 
 3. **Before commits:**
    ```r
-   source("dev/dev_check_complete.R")
-   source("dev/test_spelling.R")
+   dev_check_complete()
+   test_spelling()
    ```
 
 4. **Commit regularly:**
@@ -2056,34 +2084,34 @@ After completing this tutorial, establish these development patterns:
 
 **Review code quality:**
 ```r
-source("dev/check_best_practices.R")
-source("dev/report_code_quality.R")
+check_best_practices()
+report_code_quality()
 ```
 
 **Check test coverage:**
 ```r
-source("dev/test_coverage_report.R")
+test_coverage_report()
 ```
 
 **Update documentation:**
 ```r
-source("dev/build_website.R")
+build_website()
 ```
 
 ### Before Each Release
 
 **Follow the 4-step CRAN workflow** (if submitting to CRAN):
 ```r
-source("dev/release_01_prepare.R")
-source("dev/release_02_local_checks.R")
-source("dev/release_03_remote_checks.R")
-source("dev/release_04_submit_to_cran.R")
+release_01_prepare()
+release_02_local_checks()
+release_03_remote_checks()
+release_04_submit_to_cran()
 ```
 
 **Or for GitHub-only packages, just:**
 ```r
-source("dev/dev_check_complete.R")
-source("dev/build_website.R")
+dev_check_complete()
+build_website()
 ```
 
 Then tag the release:
@@ -2097,7 +2125,7 @@ git push origin v0.1.0
 Every push runs R CMD check on multiple platforms. If it fails:
 1. Check Actions tab for detailed logs
 2. Fix the issues locally
-3. Run `source("dev/dev_check_complete.R")` to verify fix
+3. Run `dev_check_complete()` to verify fix
 4. Commit and push again
 
 ### Engage with Users

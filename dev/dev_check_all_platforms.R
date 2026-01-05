@@ -71,12 +71,12 @@
 #' rhub::rhub_doctor()
 #'
 #' # Run comprehensive checks:
-#' check_on_all_platforms()
+#' dev_check_all_platforms()
 #'
 #' # Wait for emails (15-60 minutes per platform)
 #' # Review results for platform-specific issues
 #' }
-check_on_all_platforms <- function() {
+dev_check_all_platforms <- function() {
   # Check and install dependencies
   if (!requireNamespace("rhub", quietly = TRUE)) {
     cli::cli_alert_info("Installing required package: {.pkg rhub}")

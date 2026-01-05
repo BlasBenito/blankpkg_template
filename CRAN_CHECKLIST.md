@@ -20,10 +20,14 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 ---
 
+**Note on Function Syntax:** Development functions are auto-loaded by `.Rprofile` when you start R in the package directory. You can call them directly (e.g., `dev_check_complete()`) without using `source()`. If you've disabled `.Rprofile`, use `source("dev/function_name.R")` instead.
+
+---
+
 ## Before You Start
 
 **Timing requirements:**
-- [ ] **30-day minimum** between CRAN versions (unless fixing critical bugs)
+- [ ] **30-day minimum** between CRAN releases (unless fixing critical bugs)
 - [ ] All planned features complete and tested
 - [ ] All bugs from previous version addressed
 - [ ] Breaking changes documented in NEWS.md
@@ -105,7 +109,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **Run spell check**
   ```r
-  source("dev/test_spelling.R")
+  test_spelling()
   # Or directly: spelling::spell_check_package()
   ```
   - Add technical terms to `inst/WORDLIST` (one per line)
@@ -132,32 +136,32 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
   - No references to local files
   - Build successfully:
     ```r
-    source("dev/build_vignettes.R")
+    build_vignettes()
     ```
 
 ### 1.4 Code Quality
 
 - [ ] **Run local checks**
   ```r
-  source("dev/check_local.R")
+  dev_check_complete()
   # Must return: 0 errors, 0 warnings, 0 notes
   ```
 
 - [ ] **Good practice analysis**
   ```r
-  source("dev/check_good_practice.R")
+  dev_best_practices()
   # Review and address recommendations
   ```
 
 - [ ] **Code coverage** (aim for >80%)
   ```r
-  source("dev/test_with_coverage.R")
+  test_coverage_report()
   # Or: covr::package_coverage()
   ```
 
 - [ ] **Test suite**
   ```r
-  source("dev/test_run_all.R")
+  test_run()
   # All tests must pass
   ```
 
@@ -186,7 +190,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **Full check with CRAN standards**
   ```r
-  source("dev/release_02_local_checks.R")
+  release_02_local_checks()
   # This runs both devtools::check() and goodpractice::gp()
   ```
 
@@ -225,8 +229,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **Submit to win-builder (R-devel)**
   ```r
-  source("dev/check_win_devel.R")
-  # Or: devtools::check_win_devel()
+  devtools::check_win_devel()
   ```
   - Results arrive via email (15-60 minutes)
   - Check spam folder if delayed
@@ -236,8 +239,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **Submit to Mac builder (R-release)**
   ```r
-  source("dev/check_mac_release.R")
-  # Or: devtools::check_mac_release()
+  devtools::check_mac_release()
   ```
   - Results arrive via email (15-60 minutes)
   - Particularly important for packages with compiled code
@@ -247,7 +249,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **R-Hub multi-platform checks**
   ```r
-  source("dev/check_rhub_multi_platform.R")
+  dev_check_all_platforms()
   # Tests 20+ platforms - very thorough but slow
   ```
   - First time: Run `rhub::rhub_setup()` for configuration
@@ -327,13 +329,13 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 
 - [ ] **Update README** (if using README.Rmd)
   ```r
-  source("dev/build_readme.R")
+  build_readme()
   # Or: devtools::build_readme()
   ```
 
 - [ ] **Build package website** (if using pkgdown)
   ```r
-  source("dev/pkgdown_build_site.R")
+  build_website()
   # Or: pkgdown::build_site()
   ```
 
@@ -362,7 +364,7 @@ A comprehensive checklist for preparing and submitting R packages to CRAN, based
 #### Method A: Interactive Submission (Recommended)
 
 ```r
-source("dev/release_04_submit_to_cran.R")
+release_04_submit_to_cran()
 # Or directly: devtools::release()
 ```
 
@@ -433,7 +435,7 @@ source("dev/release_04_submit_to_cran.R")
 
 - [ ] **Update package website**
   ```r
-  source("dev/pkgdown_build_site.R")
+  build_website()
   # Deploy to GitHub Pages if configured
   ```
 
@@ -616,27 +618,28 @@ https://example.com  # HTTPS
 
 ## Quick Reference: Dev Scripts Mapping
 
-| Phase | Task | Script |
-|-------|------|--------|
-| **Daily Development** | Document & check | `source("dev/daily_document_and_check.R")` |
-| | Load package | `source("dev/daily_load_all.R")` |
-| | Run tests | `source("dev/daily_test.R")` |
-| **Pre-Release** | Spell check | `source("dev/test_spelling.R")` |
-| | Code coverage | `source("dev/test_with_coverage.R")` |
-| | Code quality | `source("dev/analyze_code_quality.R")` |
-| | Build README | `source("dev/build_readme.R")` |
-| | Build vignettes | `source("dev/build_vignettes.R")` |
-| **Release Process** | **Step 1:** Prepare | `source("dev/release_01_prepare.R")` |
-| | **Step 2:** Local checks | `source("dev/release_02_local_checks.R")` |
-| | **Step 3:** Remote checks | `source("dev/release_03_remote_checks.R")` |
-| | **Step 4:** Submit | `source("dev/release_04_submit_to_cran.R")` |
-| **Platform Checks** | Local check | `source("dev/check_local.R")` |
-| | Windows check | `source("dev/check_win_devel.R")` |
-| | macOS check | `source("dev/check_mac_release.R")` |
-| | Multi-platform | `source("dev/check_rhub_multi_platform.R")` |
-| | Good practice | `source("dev/check_good_practice.R")` |
-| **Website** | Build site | `source("dev/pkgdown_build_site.R")` |
-| | Customize site | `source("dev/pkgdown_customize_site.R")` |
+| Phase | Task | Function |
+|-------|------|----------|
+| **Daily Development** | Document & check (quick) | `dev_check_quick()` |
+| | Document & check (complete) | `dev_check_complete()` |
+| | Load package | `dev_load()` |
+| | Run tests | `test_run()` |
+| **Pre-Release** | Spell check | `test_spelling()` |
+| | Code coverage | `test_coverage_report()` |
+| | Code quality | `report_code_quality()` |
+| | Best practices | `dev_best_practices()` |
+| | Build README | `build_readme()` |
+| | Build vignettes | `build_vignettes()` |
+| **Release Process** | **Step 1:** Prepare | `release_01_prepare()` |
+| | **Step 2:** Local checks | `release_02_local_checks()` |
+| | **Step 3:** Remote checks | `release_03_remote_checks()` |
+| | **Step 4:** Submit | `release_04_submit_to_cran()` |
+| **Platform Checks** | Local check | `dev_check_complete()` |
+| | Windows check | `devtools::check_win_devel()` |
+| | macOS check | `devtools::check_mac_release()` |
+| | Multi-platform | `dev_check_all_platforms()` |
+| **Website** | Build site | `build_website()` |
+| | Customize site | `help_customize_website()` |
 
 ---
 

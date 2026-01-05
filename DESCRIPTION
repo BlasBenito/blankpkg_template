@@ -1,4 +1,4 @@
-Package: blankpkg
+Package: pkgname
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
@@ -10,14 +10,7 @@ Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet"))
 RoxygenNote: 7.3.3
 Imports:
-    cli,
-    devtools
 Suggests:
-    covr,
-    desc,
-    goodpractice,
-    pkgdown,
-    rhub,
     roxyglobals,
     spelling,
     testthat (>= 3.0.0)
